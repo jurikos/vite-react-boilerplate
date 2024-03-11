@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "component": "generate-react component"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
@@ -33,6 +34,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "generate-react-cli": "^8.4.1",
     "jsdom": "^24.0.0",
     "prettier": "^3.2.5",
     "typescript": "^5.2.2",
