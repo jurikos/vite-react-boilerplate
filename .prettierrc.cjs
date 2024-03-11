@@ -4,4 +4,18 @@ module.exports = {
   singleQuote: true,
   printWidth: 120,
   tabWidth: 2,
+  plugins: ['@trivago/prettier-plugin-sort-imports'],
+  //importOrder: ['^react', '<THIRD_PARTY_MODULES>', '^@/', '^[./]'],
+  importOrder: [
+    '^react',
+    '<THIRD_PARTY_MODULES>',
+    '^@assets',
+    '^@components',
+    '^@hooks',
+    '^@types',
+    '^@utils',
+    '^[./]',
+  ],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
 };

@@ -25,9 +25,9 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@components": ["components/index"],
-      "@hooks/*": ["hooks/index"],
-      "@types/*": ["types/index"],
-      "@utils/*": ["utils/index"],
+      "@hooks": ["hooks/index"],
+      "@types": ["types/index"],
+      "@utils": ["utils/index"],
     }
   },
   "include": ["src"],
