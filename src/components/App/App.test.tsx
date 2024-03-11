@@ -6,6 +6,7 @@ describe('App', () => {
     render(<App />);
 
     const h1 = screen.queryByText('Vite + React');
+
     expect(h1).not.toBeNull();
   });
 
@@ -13,6 +14,7 @@ describe('App', () => {
     render(<App />);
 
     const button = screen.queryByText('count is 0');
+
     expect(button).not.toBeNull();
   });
 
@@ -28,8 +30,6 @@ describe('App', () => {
     for (let i = 0; i < clickCount; i++) {
       fireEvent.click(buttonWithCasting);
     }
-
-    //screen.debug();
 
     expect(button?.innerHTML).toBe(`count is ${clickCount}`);
   });
