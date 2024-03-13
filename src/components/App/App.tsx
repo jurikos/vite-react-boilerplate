@@ -1,19 +1,56 @@
-import { Divider, Heading } from '@chakra-ui/react';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { Footer, Header, MainContainer } from '@components';
+import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-const App = () => {
+import { Layout } from '@components';
+
+import { ApiPage, HomePage } from '@pages';
+
+import theme from '../../theme';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
+
+export const Root = () => {
   return (
-    <>
-      <Header />
-      <Divider />
-      <MainContainer>
-        <Heading as="h1">Vite React Boilerplate</Heading>
-      </MainContainer>
-      <Divider />
-      <Footer />
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Layout>
+        <Outlet />
+      </Layout>
+      <ReactQueryDevtools initialIsOpen={false} position="left" buttonPosition="bottom-left" />
+    </QueryClientProvider>
   );
 };
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    children: [
+      {
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: 'api',
+        element: <ApiPage />,
+      },
+    ],
+  },
+]);
+
+const App = () => (
+  <ChakraProvider theme={theme}>
+    <RouterProvider router={router} />
+  </ChakraProvider>
+);
 
 export default App;

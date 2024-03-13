@@ -12,9 +12,9 @@
       "withStory": false,
       "withLazy": false,
       "customTemplates": {
-        "component": "templates/component/default/TemplateName.tsx",
-        "style": "templates/component/default/TemplateName.module.css",
-        "test": "templates/component/default/TemplateName.test.tsx"
+        "component": "src/__templates__/component/default/TemplateName.tsx",
+        "style": "src/__templates__/component/default/TemplateName.module.css",
+        "test": "src/__templates__/component/default/TemplateName.test.tsx"
       }
     }
   }

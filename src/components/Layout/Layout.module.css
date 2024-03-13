@@ -1,0 +1,11 @@
+.root {
+}
+
+.header,
+.footer {
+  padding: var(--chakra-space-8) 0;
+}
+
+.main {
+  padding: var(--chakra-space-16) 0;
+}

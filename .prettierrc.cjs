@@ -8,9 +8,12 @@ module.exports = {
   importOrder: [
     '^react',
     '<THIRD_PARTY_MODULES>',
+    '^@testing-library',
     '^@assets',
     '^@components',
     '^@hooks',
+    '^@pages',
+    '^@test',
     '^@types',
     '^@utils',
     '^[./]',
