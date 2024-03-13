@@ -1,5 +1,6 @@
 import { HttpResponse, http } from 'msw';
-import { setupServer } from 'msw/node';
+
+import { createServer } from '@test';
 
 import { getPosts } from './api';
 
@@ -14,17 +15,8 @@ const postsMock = [
 ];
 
 describe('fetches and returns posts successfully', () => {
-  // Set up a server instance specifically for this describe block
-  const server = setupServer();
-
-  // Start server before all tests in this describe block
-  beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
-
-  // Close server after all tests in this describe block
-  afterAll(() => server.close());
-
-  // Reset handlers after each test in this describe block (important for test isolation)
-  afterEach(() => server.resetHandlers());
+  const { serverStart, server } = createServer();
+  serverStart();
 
   it('should fetch and return posts correctly', async () => {
     server.use(http.get(endpointMock, () => HttpResponse.json(postsMock)));
