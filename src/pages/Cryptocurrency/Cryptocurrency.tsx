@@ -2,19 +2,19 @@ import { Heading } from '@chakra-ui/react';
 
 import { useMetaTags } from '@hooks';
 
-const Home = () => {
+const Cryptocurrency = () => {
   useMetaTags({
-    title: 'Home',
-    description: 'Home.',
+    title: 'Cryptocurrency',
+    description: 'Cryptocurrency.',
   });
 
   return (
     <>
       <Heading as="h1" size="3xl">
-        Vite React Boilerplate
+        Cryptocurrency
       </Heading>
     </>
   );
 };
 
-export default Home;
+export default Cryptocurrency;
