@@ -39,7 +39,7 @@ describe('Posts', () => {
   it('displays success state', () => {
     useGetApiSpy.mockReturnValue({
       ...queryResultMock,
-      data: [postsMock],
+      data: postsMock,
     });
 
     render(<Posts />, { wrapper: TestWrapper });
