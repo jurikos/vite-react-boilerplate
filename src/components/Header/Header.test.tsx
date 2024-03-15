@@ -17,7 +17,7 @@ vi.mock('@chakra-ui/react', async () => {
 });
 
 describe('Header', () => {
-  it('renders the Header component with light mode initially', async () => {
+  it('renders the Header component with light mode initially', () => {
     render(<Header />, { wrapper: TestWrapper });
     const content = 'Toggle color mode';
 
