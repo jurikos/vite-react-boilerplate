@@ -8,6 +8,10 @@ if (typeof window !== 'undefined') {
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
       dispatchEvent: vi.fn(),
+
+      // Deprecated but still used in some places
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
     })),
   });
 }

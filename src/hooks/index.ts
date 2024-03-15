@@ -1,3 +1,3 @@
-import useGetApi from './useGetApi';
+import useGetApi from './useGetApi/useGetApi';
 
 export { useGetApi };

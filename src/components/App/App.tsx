@@ -6,7 +6,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { Layout } from '@components';
 
-import { ApiPage, HomePage } from '@pages';
+import { HomePage, JsonPlaceholderPage } from '@pages';
+
+import { RouteDictionary } from '@routes';
 
 import theme from '../../theme';
 
@@ -36,12 +38,12 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: '/',
+        path: RouteDictionary.Home,
         element: <HomePage />,
       },
       {
-        path: 'api',
-        element: <ApiPage />,
+        path: RouteDictionary.JsonPlaceholder,
+        element: <JsonPlaceholderPage />,
       },
     ],
   },

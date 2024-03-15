@@ -5,6 +5,8 @@ import { cleanup } from '@testing-library/react';
 
 import './mocks/matchMedia';
 
+vi.spyOn(console, 'error').mockImplementation(() => {});
+
 beforeEach(() => {
   vi.clearAllMocks();
 });

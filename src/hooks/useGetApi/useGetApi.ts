@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { useToast } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 
-const useGetApi = <T>(endpoint: string, getApiData: (endpoint: string) => Promise<T>) => {
+const useGetApi = <T>(endpoint: string, getApiData: (endpoint: string) => Promise<T>, isEnabled = true) => {
   const toast = useToast();
   const { data, isLoading, isError, error } = useQuery<T>({
     queryKey: [endpoint],
     queryFn: () => getApiData(endpoint),
+    enabled: isEnabled,
   });
 
   useEffect(() => {

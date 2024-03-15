@@ -5,6 +5,8 @@ import { Link as ChakraLink, Flex, IconButton, LinkProps, useColorMode } from '@
 
 import { MainContainer } from '@components';
 
+import { RouteDictionary } from '@routes';
+
 import styles from './Header.module.css';
 import viteLogo from '/vite.svg';
 
@@ -21,12 +23,12 @@ const Header = () => {
     <header className={styles.root}>
       <MainContainer>
         <Flex minWidth="max-content" alignItems="center" justifyContent="space-between" gap={8}>
-          <Link href="/">
+          <Link href={RouteDictionary.Home}>
             <img src={viteLogo} className="logo" alt="Vite logo" />
           </Link>
           <Flex justifyContent="space-between" gap={2}>
-            <Link href="/">Home</Link>
-            <Link href="/api">Api</Link>
+            <Link href={RouteDictionary.Home}>Home</Link>
+            <Link href={RouteDictionary.JsonPlaceholder}>JsonPlaceholder</Link>
           </Flex>
           <IconButton
             onClick={toggleColorMode}

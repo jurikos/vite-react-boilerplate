@@ -1,7 +1,7 @@
 import { JsonPlaceholderPosts } from '@modules';
 
-const Api = () => {
+const JsonPlaceholder = () => {
   return <JsonPlaceholderPosts />;
 };
 
-export default Api;
+export default JsonPlaceholder;

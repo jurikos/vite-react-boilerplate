@@ -28,9 +28,11 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@components": ["components/index"],
+      "@constants": ["constants/index"],
       "@hooks": ["hooks/index"],
       "@modules": ["modules/index"],
       "@pages": ["pages/index"],
+      "@routes": ["routes/index"],
       "@test": ["test/index"],
       "@types": ["types/index"],
       "@utils": ["utils/index"],

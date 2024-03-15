@@ -1,21 +1,14 @@
 import { HttpResponse, http } from 'msw';
 
-import { createServer } from '@test';
+import { createServerMock } from '@test';
 
+import { postsMock } from '../mocks';
 import { getPosts } from './api';
 
 const endpointMock = 'https://rest-endpoint.example/path/to/posts';
-const postsMock = [
-  {
-    userId: 1,
-    id: 1,
-    title: 'first post title',
-    body: 'first post body',
-  },
-];
 
-describe('fetches and returns posts successfully', () => {
-  const { serverStart, server } = createServer();
+describe('getPosts', () => {
+  const { serverStart, server } = createServerMock();
   serverStart();
 
   it('should fetch and return posts correctly', async () => {

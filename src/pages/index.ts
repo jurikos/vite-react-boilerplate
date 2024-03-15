@@ -1,4 +1,4 @@
-import Api from './Api/Api';
 import Home from './Home/Home';
+import JsonPlaceholder from './JsonPlaceholder/JsonPlaceholder';
 
-export { Api as ApiPage, Home as HomePage };
+export { JsonPlaceholder as JsonPlaceholderPage, Home as HomePage };

@@ -12,6 +12,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 
+import { DataTestId } from '@constants';
+
 import { useGetApi } from '@hooks';
 
 import { getPosts } from '../../api';
@@ -23,7 +25,7 @@ const Posts = () => {
 
   if (isError) {
     return (
-      <RootWrapper>
+      <RootWrapper dataTestId={DataTestId.isError}>
         <Alert status="error">
           <AlertIcon />
           <AlertTitle>Error!</AlertTitle>
@@ -35,7 +37,7 @@ const Posts = () => {
 
   if (isLoading || !data) {
     return (
-      <RootWrapper>
+      <RootWrapper dataTestId={DataTestId.isLoading}>
         <Stack spacing={8}>
           {Array(4)
             .fill(null)
@@ -50,36 +52,40 @@ const Posts = () => {
     );
   }
 
-  return (
-    <RootWrapper>
-      {data.length ? (
-        <Stack spacing={8}>
-          {data.map(({ id, title, body }) => (
-            <div key={id}>
-              <Heading as="h2">{title}</Heading>
-              <Text as="p">{body}</Text>
-            </div>
-          ))}
-        </Stack>
-      ) : (
+  if (!data.length) {
+    return (
+      <RootWrapper dataTestId={DataTestId.isDataEmpty}>
         <Alert status="info">
           <AlertIcon />
           <AlertTitle>No posts!</AlertTitle>
           There are no posts added yet.
         </Alert>
-      )}
+      </RootWrapper>
+    );
+  }
+
+  return (
+    <RootWrapper dataTestId={DataTestId.isDataPresent}>
+      <Stack spacing={8}>
+        {data.map(({ id, title, body }) => (
+          <div key={id}>
+            <Heading as="h2">{title}</Heading>
+            <Text as="p">{body}</Text>
+          </div>
+        ))}
+      </Stack>
     </RootWrapper>
   );
 };
 
 export default Posts;
 
-const RootWrapper = ({ children }: PropsWithChildren) => (
-  <>
+const RootWrapper = ({ children, dataTestId }: PropsWithChildren<{ dataTestId: DataTestId }>) => (
+  <div data-testid={dataTestId}>
     <Heading as="h1" size="3xl">
       JsonPlaceholder Posts
     </Heading>
     <Spacer height={16} />
     {children}
-  </>
+  </div>
 );
