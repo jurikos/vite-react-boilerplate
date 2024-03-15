@@ -1,4 +1,4 @@
-import { Heading } from '@chakra-ui/react';
+import { CryptoCurrencyTable } from '@modules';
 
 import { useMetaTags } from '@hooks';
 
@@ -8,13 +8,7 @@ const Cryptocurrency = () => {
     description: 'Cryptocurrency.',
   });
 
-  return (
-    <>
-      <Heading as="h1" size="3xl">
-        Cryptocurrency
-      </Heading>
-    </>
-  );
+  return <CryptoCurrencyTable />;
 };
 
 export default Cryptocurrency;

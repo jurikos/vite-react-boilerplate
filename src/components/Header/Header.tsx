@@ -32,6 +32,7 @@ const Header = () => {
             <Link href={RouteDictionary.Cryptocurrency}>Cryptocurrency</Link>
           </Flex>
           <IconButton
+            size="sm"
             onClick={toggleColorMode}
             isRound
             aria-label="Toggle color mode"
