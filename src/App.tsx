@@ -1,4 +1,5 @@
-import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -21,16 +22,31 @@ const queryClient = new QueryClient({
   },
 });
 
-export const Root = () => (
-  <GlobalProvider>
-    <QueryClientProvider client={queryClient}>
-      <Layout>
-        <Outlet />
-      </Layout>
-      <ReactQueryDevtools initialIsOpen={false} position="left" buttonPosition="bottom-left" />
-    </QueryClientProvider>
-  </GlobalProvider>
-);
+export const Root = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const currentURL = window.location.pathname + window.location.search;
+    // Detect if we are in the GitHub Pages redirect scenario
+    if (currentURL.includes('/?/')) {
+      // Extract the path after the '/?/'
+      const newPath = currentURL.split('/?/')[1] || '';
+      // Use navigate to go to the correct path without leading slash
+      navigate(newPath, { replace: true });
+    }
+  }, [navigate]);
+
+  return (
+    <GlobalProvider>
+      <QueryClientProvider client={queryClient}>
+        <Layout>
+          <Outlet />
+        </Layout>
+        <ReactQueryDevtools initialIsOpen={false} position="left" buttonPosition="bottom-left" />
+      </QueryClientProvider>
+    </GlobalProvider>
+  );
+};
 
 const router = createBrowserRouter(
   [
@@ -56,10 +72,12 @@ const router = createBrowserRouter(
   { basename: '/vite-react-boilerplate' },
 );
 
-const App = () => (
-  <ChakraProvider theme={theme}>
-    <RouterProvider router={router} />
-  </ChakraProvider>
-);
+const App = () => {
+  return (
+    <ChakraProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ChakraProvider>
+  );
+};
 
 export default App;
