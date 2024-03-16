@@ -1,4 +1,4 @@
-import { MainContainer } from '@components';
+import { MainContainer } from '@shared/components';
 
 import styles from './Footer.module.css';
 

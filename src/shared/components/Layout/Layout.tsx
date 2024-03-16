@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 
 import { Divider } from '@chakra-ui/react';
 
-import { Footer, Header, MainContainer } from '@components';
+import { Footer, Header, MainContainer } from '@shared/components';
 
 import styles from './Layout.module.css';
 

@@ -21,11 +21,9 @@ import {
   Tr,
 } from '@chakra-ui/react';
 
-import { DataTestId } from '@constants';
-
-import { useGetApi } from '@hooks';
-
-import { formatPrice } from '@utils';
+import { DataTestId } from '@shared/constants';
+import { useGetApi } from '@shared/hooks';
+import { formatPrice } from '@shared/utils';
 
 import { getCryptoCurrencies } from '../../api';
 

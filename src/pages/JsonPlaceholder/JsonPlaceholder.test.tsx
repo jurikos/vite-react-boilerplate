@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
 
-import { TestWrapper } from '@test';
+import { TestWrapper } from '@shared/test';
 
-import Api from './JsonPlaceholder';
+import JsonPlaceholder from './JsonPlaceholder';
 
-describe('Api', () => {
-  it.only('renders the Api component', () => {
-    render(<Api />, { wrapper: TestWrapper });
+describe('JsonPlaceholder', () => {
+  it.only('renders the JsonPlaceholder component', () => {
+    render(<JsonPlaceholder />, { wrapper: TestWrapper });
   });
 });

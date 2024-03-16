@@ -2,9 +2,8 @@ import { PropsWithChildren } from 'react';
 
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Heading, SkeletonText, Stack, Text } from '@chakra-ui/react';
 
-import { DataTestId } from '@constants';
-
-import { useGetApi } from '@hooks';
+import { DataTestId } from '@shared/constants';
+import { useGetApi } from '@shared/hooks';
 
 import { getPosts } from '../../api';
 

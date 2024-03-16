@@ -1,6 +1,6 @@
 import { Heading } from '@chakra-ui/react';
 
-import { useMetaTags } from '@hooks';
+import { useMetaTags } from '@shared/hooks';
 
 const Home = () => {
   useMetaTags({

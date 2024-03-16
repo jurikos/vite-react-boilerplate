@@ -1,7 +1,8 @@
 import { Heading, Spacer } from '@chakra-ui/react';
+
 import { CryptoCurrencyTable } from '@modules';
 
-import { useMetaTags } from '@hooks';
+import { useMetaTags } from '@shared/hooks';
 
 const Cryptocurrency = () => {
   useMetaTags({

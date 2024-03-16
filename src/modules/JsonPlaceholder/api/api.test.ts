@@ -1,6 +1,6 @@
 import { HttpResponse, http } from 'msw';
 
-import { createServerMock } from '@test';
+import { createServerMock } from '@shared/test';
 
 import { postsMock } from '../mocks';
 import { getPosts } from './api';

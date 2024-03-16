@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { renderHook } from '@testing-library/react';
 import { Mock } from 'vitest';
 
-import { renderHook } from '@testing-library/react';
-
-import { QueryResultMockType, queryResultMock } from '@test';
+import { QueryResultMockType, queryResultMock } from '@shared/test';
 
 import useGetApi from './useGetApi';
 
