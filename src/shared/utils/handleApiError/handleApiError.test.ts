@@ -1,6 +1,6 @@
 import { ZodError, z } from 'zod';
 
-import { handleApiError } from '@utils';
+import handleApiError from './handleApiError';
 
 describe('handleApiError', () => {
   it('should throw a validation error for ZodError instances', () => {

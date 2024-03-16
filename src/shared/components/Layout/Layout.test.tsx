@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { TestWrapper } from '@test';
+import { TestWrapper } from '@shared/test';
 
 import Layout from './Layout';
 

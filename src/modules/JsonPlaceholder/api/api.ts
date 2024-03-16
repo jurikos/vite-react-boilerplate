@@ -1,4 +1,4 @@
-import { api, handleApiError } from '@utils';
+import { api, handleApiError } from '@shared/utils';
 
 import { Post, schemaPost } from '../types';
 

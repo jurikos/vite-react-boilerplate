@@ -3,9 +3,8 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { Link as ChakraLink, Flex, IconButton, LinkProps, useColorMode } from '@chakra-ui/react';
 
-import { MainContainer } from '@components';
-
-import { RouteDictionary } from '@routes';
+import { MainContainer } from '@shared/components';
+import { RouteDictionary } from '@shared/routes';
 
 import styles from './Header.module.css';
 import viteLogo from '/vite.svg';

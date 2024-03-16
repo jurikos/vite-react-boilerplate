@@ -1,10 +1,8 @@
 import { render, screen } from '@testing-library/react';
 
-import { DataTestId } from '@constants';
-
-import * as hooks from '@hooks';
-
-import { TestWrapper, queryResultMock } from '@test';
+import { DataTestId } from '@shared/constants';
+import * as hooks from '@shared/hooks';
+import { TestWrapper, queryResultMock } from '@shared/test';
 
 import { cryptoCurrenciesMock } from '../../mocks';
 import Table from './Table';

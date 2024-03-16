@@ -1,7 +1,8 @@
 import { Heading, Spacer } from '@chakra-ui/react';
+
 import { JsonPlaceholderPosts } from '@modules';
 
-import { useMetaTags } from '@hooks';
+import { useMetaTags } from '@shared/hooks';
 
 const JsonPlaceholder = () => {
   useMetaTags({

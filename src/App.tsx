@@ -4,13 +4,12 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { Layout } from '@components';
-
 import { CryptocurrencyPage, HomePage, JsonPlaceholderPage } from '@pages';
 
-import { RouteDictionary } from '@routes';
+import { Layout } from '@shared/components';
+import { RouteDictionary } from '@shared/routes';
 
-import theme from '../../theme';
+import theme from './theme';
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -6,16 +6,18 @@ import { configDefaults } from 'vitest/config';
 const configOverrides = {
   resolve: {
     alias: {
-      '@assets': '/src/assets',
-      '@components': '/src/components/index',
-      '@constants': '/src/constants/index',
-      '@hooks': '/src/hooks/index',
+      '@context': '/src/context/index',
       '@modules': '/src/modules/index',
       '@pages': '/src/pages/index',
-      '@routes': '/src/routes/index',
-      '@test': '/src/test/index',
-      '@types': '/src/types/index',
-      '@utils': '/src/utils/index',
+      //shared
+      '@shared/assets': '/src/shared/assets',
+      '@shared/components': '/src/shared/components/index',
+      '@shared/constants': '/src/shared/constants/index',
+      '@shared/hooks': '/src/shared/hooks/index',
+      '@shared/routes': '/src/shared/routes/index',
+      '@shared/test': '/src/shared/test/index',
+      '@shared/types': '/src/shared/types/index',
+      '@shared/utils': '/src/shared/utils/index',
     },
   },
   test: {
@@ -34,7 +36,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: '/src/test/setup.ts',
+    setupFiles: '/src/shared/test/setup.ts',
     coverage: {
       ...configDefaults.coverage,
       exclude: [...(configDefaults.coverage.exclude ?? []), ...configOverrides.test.coverage.exclude],
