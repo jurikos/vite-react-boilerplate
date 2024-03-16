@@ -3,8 +3,10 @@ import { render, screen } from '@testing-library/react';
 import { DataTestId } from '@shared/constants';
 import * as hooks from '@shared/hooks';
 import { TestWrapper, queryResultMock } from '@shared/test';
+import { getScopedDataTestId } from '@shared/utils';
 
 import CryptoList from './CryptoList';
+import { testIdScope } from './constants';
 
 const cryptoCurrenciesMock = [
   {
@@ -45,7 +47,7 @@ describe('CryptoList', () => {
 
     render(<CryptoList />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(DataTestId.isError)).toBeInTheDocument();
+    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isError))).toBeInTheDocument();
   });
 
   it('displays loading state', () => {
@@ -53,7 +55,7 @@ describe('CryptoList', () => {
 
     render(<CryptoList />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(DataTestId.isLoading)).toBeInTheDocument();
+    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isLoading))).toBeInTheDocument();
   });
 
   it('displays empty state', () => {
@@ -61,7 +63,7 @@ describe('CryptoList', () => {
 
     render(<CryptoList />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(DataTestId.isDataEmpty)).toBeInTheDocument();
+    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isDataEmpty))).toBeInTheDocument();
   });
 
   it('displays success state', () => {
@@ -72,6 +74,6 @@ describe('CryptoList', () => {
 
     render(<CryptoList />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(DataTestId.isDataPresent)).toBeInTheDocument();
+    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isDataPresent))).toBeInTheDocument();
   });
 });

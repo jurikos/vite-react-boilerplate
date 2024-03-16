@@ -9,4 +9,6 @@ const formatPrice = (price: number) =>
     maximumFractionDigits: 2,
   }).format(price);
 
-export { api, handleApiError, formatPrice };
+const getScopedDataTestId = (testIdScope: string, dataTestId: string) => `${testIdScope}-${dataTestId}`;
+
+export { api, handleApiError, formatPrice, getScopedDataTestId };

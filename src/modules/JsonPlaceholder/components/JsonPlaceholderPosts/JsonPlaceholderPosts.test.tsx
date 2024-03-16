@@ -3,8 +3,10 @@ import { render, screen } from '@testing-library/react';
 import { DataTestId } from '@shared/constants';
 import * as hooks from '@shared/hooks';
 import { TestWrapper, queryResultMock } from '@shared/test';
+import { getScopedDataTestId } from '@shared/utils';
 
 import JsonPlaceholderPosts from './JsonPlaceholderPosts';
+import { testIdScope } from './constants';
 
 const postsMock = [
   {
@@ -23,7 +25,7 @@ describe('JsonPlaceholderPosts', () => {
 
     render(<JsonPlaceholderPosts />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(DataTestId.isError)).toBeInTheDocument();
+    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isError))).toBeInTheDocument();
   });
 
   it('displays loading state', () => {
@@ -31,7 +33,7 @@ describe('JsonPlaceholderPosts', () => {
 
     render(<JsonPlaceholderPosts />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(DataTestId.isLoading)).toBeInTheDocument();
+    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isLoading))).toBeInTheDocument();
   });
 
   it('displays empty state', () => {
@@ -39,7 +41,7 @@ describe('JsonPlaceholderPosts', () => {
 
     render(<JsonPlaceholderPosts />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(DataTestId.isDataEmpty)).toBeInTheDocument();
+    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isDataEmpty))).toBeInTheDocument();
   });
 
   it('displays success state', () => {
@@ -50,6 +52,6 @@ describe('JsonPlaceholderPosts', () => {
 
     render(<JsonPlaceholderPosts />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(DataTestId.isDataPresent)).toBeInTheDocument();
+    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isDataPresent))).toBeInTheDocument();
   });
 });

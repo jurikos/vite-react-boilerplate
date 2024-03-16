@@ -1,5 +1,4 @@
 import { Button, Stack } from '@chakra-ui/react';
-import '@chakra-ui/react';
 
 import { MainContainer } from '@shared/components';
 import { useGlobalContext } from '@shared/hooks';

@@ -1,5 +1,3 @@
-import { PropsWithChildren } from 'react';
-
 import { StarIcon } from '@chakra-ui/icons';
 import {
   Alert,
@@ -21,11 +19,13 @@ import {
   Tr,
 } from '@chakra-ui/react';
 
+import { RootWrapper } from '@shared/components';
 import { DataTestId } from '@shared/constants';
 import { useGetApi, useGlobalContext } from '@shared/hooks';
-import { formatPrice } from '@shared/utils';
+import { formatPrice, getScopedDataTestId } from '@shared/utils';
 
 import { cryptoCurrencyApiValidationSchema } from '../../schemas';
+import { testIdScope } from './constants';
 
 const endpoint = 'https://api.coincap.io/v2/assets';
 
@@ -40,7 +40,7 @@ const CryptoList = () => {
 
   if (isError) {
     return (
-      <RootWrapper dataTestId={DataTestId.isError}>
+      <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isError)}>
         <Alert status="error">
           <AlertIcon />
           <AlertTitle>Error!</AlertTitle>
@@ -52,7 +52,7 @@ const CryptoList = () => {
 
   if (isLoading || !data) {
     return (
-      <RootWrapper dataTestId={DataTestId.isLoading}>
+      <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isLoading)}>
         <Stack spacing={8}>
           {Array(4)
             .fill(null)
@@ -69,7 +69,7 @@ const CryptoList = () => {
 
   if (!data.length) {
     return (
-      <RootWrapper dataTestId={DataTestId.isDataEmpty}>
+      <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isDataEmpty)}>
         <Alert status="info">
           <AlertIcon />
           <AlertTitle>No cryptocurrencies!</AlertTitle>
@@ -80,7 +80,7 @@ const CryptoList = () => {
   }
 
   return (
-    <RootWrapper dataTestId={DataTestId.isDataPresent}>
+    <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isDataPresent)}>
       <TableContainer>
         <Table variant="simple">
           <TableCaption>Top 100 Cryptocurrencies</TableCaption>
@@ -147,10 +147,6 @@ const CryptoList = () => {
 };
 
 export default CryptoList;
-
-const RootWrapper = ({ children, dataTestId }: PropsWithChildren<{ dataTestId: DataTestId }>) => (
-  <div data-testid={dataTestId}>{children}</div>
-);
 
 const TableHeading = () => (
   <Tr>

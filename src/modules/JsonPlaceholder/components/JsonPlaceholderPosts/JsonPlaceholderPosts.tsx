@@ -1,11 +1,12 @@
-import { PropsWithChildren } from 'react';
-
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Heading, SkeletonText, Stack, Text } from '@chakra-ui/react';
 
+import { RootWrapper } from '@shared/components';
 import { DataTestId } from '@shared/constants';
 import { useGetApi } from '@shared/hooks';
+import { getScopedDataTestId } from '@shared/utils';
 
 import { jsonPlaceholderPostApiValidationSchema } from '../../schemas';
+import { testIdScope } from './constants';
 
 const endpoint = 'https://jsonplaceholder.typicode.com/posts';
 
@@ -17,7 +18,7 @@ const JsonPlaceholderPosts = () => {
 
   if (isError) {
     return (
-      <RootWrapper dataTestId={DataTestId.isError}>
+      <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isError)}>
         <Alert status="error">
           <AlertIcon />
           <AlertTitle>Error!</AlertTitle>
@@ -29,7 +30,7 @@ const JsonPlaceholderPosts = () => {
 
   if (isLoading || !data) {
     return (
-      <RootWrapper dataTestId={DataTestId.isLoading}>
+      <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isLoading)}>
         <Stack spacing={8}>
           {Array(4)
             .fill(null)
@@ -46,7 +47,7 @@ const JsonPlaceholderPosts = () => {
 
   if (!data.length) {
     return (
-      <RootWrapper dataTestId={DataTestId.isDataEmpty}>
+      <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isDataEmpty)}>
         <Alert status="info">
           <AlertIcon />
           <AlertTitle>No posts!</AlertTitle>
@@ -57,7 +58,7 @@ const JsonPlaceholderPosts = () => {
   }
 
   return (
-    <RootWrapper dataTestId={DataTestId.isDataPresent}>
+    <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isDataPresent)}>
       <Stack spacing={8}>
         {data.map(({ id, title, body }) => (
           <div key={id}>
@@ -71,7 +72,3 @@ const JsonPlaceholderPosts = () => {
 };
 
 export default JsonPlaceholderPosts;
-
-const RootWrapper = ({ children, dataTestId }: PropsWithChildren<{ dataTestId: DataTestId }>) => (
-  <div data-testid={dataTestId}>{children}</div>
-);
