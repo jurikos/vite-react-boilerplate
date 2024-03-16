@@ -4,8 +4,16 @@ import { DataTestId } from '@shared/constants';
 import * as hooks from '@shared/hooks';
 import { TestWrapper, queryResultMock } from '@shared/test';
 
-import { postsMock } from '../../mocks';
 import JsonPlaceholderPosts from './JsonPlaceholderPosts';
+
+const postsMock = [
+  {
+    userId: 1,
+    id: 1,
+    title: 'title',
+    body: 'body',
+  },
+];
 
 describe('JsonPlaceholderPosts', () => {
   const useGetApiSpy = vi.spyOn(hooks, 'useGetApi');

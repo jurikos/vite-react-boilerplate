@@ -25,12 +25,17 @@ import { DataTestId } from '@shared/constants';
 import { useGetApi } from '@shared/hooks';
 import { formatPrice } from '@shared/utils';
 
-import { getCryptoCurrencies } from '../../api';
+import { cryptoCurrencyApiValidationSchema } from '../../schemas';
 
 const endpoint = 'https://api.coincap.io/v2/assets';
 
 const CryptoList = () => {
-  const { data, isLoading, isError } = useGetApi(endpoint, getCryptoCurrencies);
+  const {
+    data: responseData,
+    isLoading,
+    isError,
+  } = useGetApi({ endpoint, validationSchema: cryptoCurrencyApiValidationSchema });
+  const data = responseData?.data;
 
   // TODO: move to context provider. Sort by rank. Display crypto images.
   const [cryptoWatchList, setCryptoWatchList] = useState<string[]>([]);

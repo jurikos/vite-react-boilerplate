@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const schemaCryptoCurrency = z.object({
+const cryptoCurrencySchema = z.object({
   id: z.string(),
   rank: z.string(),
   symbol: z.string(),
@@ -15,4 +15,7 @@ export const schemaCryptoCurrency = z.object({
   explorer: z.string().url().nullable(),
 });
 
-export type CryptoCurrency = z.infer<typeof schemaCryptoCurrency>;
+export const cryptoCurrencyApiValidationSchema = z.object({
+  data: z.array(cryptoCurrencySchema),
+  timestamp: z.number(),
+});

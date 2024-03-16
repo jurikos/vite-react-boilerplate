@@ -2,12 +2,31 @@ import { useEffect } from 'react';
 
 import { useToast } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { z } from 'zod';
 
-const useGetApi = <T>(endpoint: string, getApiData: (endpoint: string) => Promise<T>, isEnabled = true) => {
+import { api, handleApiError } from '@shared/utils';
+
+const getApiData = async <T>(endpoint: string, validationSchema: z.ZodSchema<T>): Promise<T> => {
+  try {
+    const response = await api.get(endpoint).json();
+
+    return validationSchema.parse(response);
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+type Props<T> = {
+  endpoint: string;
+  validationSchema: z.ZodSchema<T>;
+  isEnabled?: boolean;
+};
+
+const useGetApi = <T>({ endpoint, validationSchema, isEnabled = true }: Props<T>) => {
   const toast = useToast();
   const { data, isLoading, isError, error } = useQuery<T>({
     queryKey: [endpoint],
-    queryFn: () => getApiData(endpoint),
+    queryFn: () => getApiData(endpoint, validationSchema),
     enabled: isEnabled,
   });
 

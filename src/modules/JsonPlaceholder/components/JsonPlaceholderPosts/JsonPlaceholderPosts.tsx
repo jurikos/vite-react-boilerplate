@@ -5,12 +5,15 @@ import { Alert, AlertDescription, AlertIcon, AlertTitle, Heading, SkeletonText, 
 import { DataTestId } from '@shared/constants';
 import { useGetApi } from '@shared/hooks';
 
-import { getPosts } from '../../api';
+import { jsonPlaceholderPostApiValidationSchema } from '../../schemas';
 
 const endpoint = 'https://jsonplaceholder.typicode.com/posts';
 
 const JsonPlaceholderPosts = () => {
-  const { data, isLoading, isError } = useGetApi(endpoint, getPosts);
+  const { data, isLoading, isError } = useGetApi({
+    endpoint,
+    validationSchema: jsonPlaceholderPostApiValidationSchema,
+  });
 
   if (isError) {
     return (
