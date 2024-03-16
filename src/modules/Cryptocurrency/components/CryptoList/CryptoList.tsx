@@ -1,32 +1,12 @@
-import { StarIcon } from '@chakra-ui/icons';
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  HStack,
-  IconButton,
-  Image,
-  Link,
-  SkeletonText,
-  Stack,
-  Table,
-  TableCaption,
-  TableContainer,
-  Tbody,
-  Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
-} from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, SkeletonText, Stack } from '@chakra-ui/react';
 
 import { RootWrapper } from '@shared/components';
 import { DataTestId } from '@shared/constants';
-import { useGetApi, useGlobalContext } from '@shared/hooks';
-import { formatPrice, getScopedDataTestId } from '@shared/utils';
+import { useGetApi } from '@shared/hooks';
+import { getScopedDataTestId } from '@shared/utils';
 
 import { cryptoCurrencyApiValidationSchema } from '../../schemas';
+import CryptoTable from './CryptoTable';
 import { testIdScope } from './constants';
 
 const endpoint = 'https://api.coincap.io/v2/assets';
@@ -38,7 +18,6 @@ const CryptoList = () => {
     isError,
   } = useGetApi({ endpoint, validationSchema: cryptoCurrencyApiValidationSchema });
   const data = responseData?.data;
-  const { cryptoWatchList, onCryptoWatchListItemToggle } = useGlobalContext();
 
   if (isError) {
     return (
@@ -83,91 +62,9 @@ const CryptoList = () => {
 
   return (
     <RootWrapper dataTestId={getScopedDataTestId(testIdScope, DataTestId.isDataPresent)}>
-      <TableContainer>
-        <Table variant="simple">
-          <TableCaption>Top 100 Cryptocurrencies</TableCaption>
-          <Thead>
-            <TableHeadings />
-          </Thead>
-          <Tbody>
-            {data.map(({ id, rank, symbol, explorer, name, priceUsd, changePercent24Hr, marketCapUsd }) => {
-              const numberChangePercent24Hr = Number(changePercent24Hr);
-              const numberRank = Number(rank);
-
-              return (
-                <Tr key={id}>
-                  <Td>{Number(rank)}</Td>
-                  <Td>
-                    {explorer ? (
-                      <Link href={explorer} target="_blank">
-                        {symbol}
-                      </Link>
-                    ) : (
-                      symbol
-                    )}
-                  </Td>
-                  <Td>
-                    <HStack>
-                      <Image
-                        borderRadius="full"
-                        boxSize="24px"
-                        src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`}
-                        alt={name}
-                      />
-                      <span>{name}</span>
-                    </HStack>
-                  </Td>
-                  <Td isNumeric>{formatPrice(Number(priceUsd))}</Td>
-                  <Td
-                    color={
-                      numberChangePercent24Hr < 0 ? 'var(--chakra-colors-red-500)' : 'var(--chakra-colors-green-500)'
-                    }
-                    isNumeric
-                  >
-                    {numberChangePercent24Hr > 0 && '+'}
-                    {numberChangePercent24Hr.toFixed(2)}%
-                  </Td>
-                  <Td isNumeric>{formatPrice(Number(marketCapUsd))}</Td>
-                  <Td isNumeric>
-                    <IconButton
-                      size="sm"
-                      onClick={() => onCryptoWatchListItemToggle({ symbol, rank: numberRank })}
-                      isRound
-                      aria-label="Add to watch list"
-                      icon={
-                        <StarIcon
-                          color={
-                            cryptoWatchList.find((item) => item.symbol === symbol)
-                              ? 'var(--chakra-colors-yellow-400)'
-                              : undefined
-                          }
-                        />
-                      }
-                    />
-                  </Td>
-                </Tr>
-              );
-            })}
-          </Tbody>
-          <Tfoot>
-            <TableHeadings />
-          </Tfoot>
-        </Table>
-      </TableContainer>
+      <CryptoTable data={data} />
     </RootWrapper>
   );
 };
 
 export default CryptoList;
-
-const TableHeadings = () => (
-  <Tr>
-    <Th>#</Th>
-    <Th>Symbol</Th>
-    <Th>Name</Th>
-    <Th isNumeric>Price</Th>
-    <Th isNumeric>Change 24h</Th>
-    <Th isNumeric>Market Cap</Th>
-    <Th isNumeric />
-  </Tr>
-);

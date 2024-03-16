@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const cryptoCurrencySchema = z.object({
+export const cryptoCurrencySchema = z.object({
   id: z.string(),
   rank: z.string(),
   symbol: z.string(),
