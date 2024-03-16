@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { renderHook } from '@testing-library/react';
 import { Mock } from 'vitest';
+import { z } from 'zod';
 
 import { QueryResultMockType, queryResultMock } from '@shared/test';
 
@@ -25,24 +26,22 @@ const useQueryMock = (returnValues: Partial<QueryResultMockType>) => {
 };
 
 describe('useGetApi', () => {
-  type DataMockType = {
-    id: number;
-    userName: string;
-  };
+  const mockValidationSchema = z.object({
+    id: z.number(),
+    userName: z.string(),
+  });
 
-  const dataMock: DataMockType = {
+  const dataMock = {
     id: 1,
     userName: 'test-user',
   };
-
-  const getMockData: (endpoint: string) => Promise<DataMockType> = vi.fn().mockResolvedValue(dataMock);
 
   const endpointMock = '/api/v1/mock';
 
   it('renders correctly and should return data', () => {
     useQueryMock({ data: dataMock });
 
-    const { result } = renderHook(() => useGetApi<DataMockType>(endpointMock, getMockData));
+    const { result } = renderHook(() => useGetApi({ endpoint: endpointMock, validationSchema: mockValidationSchema }));
 
     expect(result.current.data).toMatchObject(dataMock);
   });
@@ -50,7 +49,7 @@ describe('useGetApi', () => {
   it('renders correctly with loading state', () => {
     useQueryMock({ isLoading: true });
 
-    const { result } = renderHook(() => useGetApi<DataMockType>(endpointMock, getMockData));
+    const { result } = renderHook(() => useGetApi({ endpoint: endpointMock, validationSchema: mockValidationSchema }));
 
     expect(result.current.isLoading).toBeTruthy();
   });
@@ -59,7 +58,7 @@ describe('useGetApi', () => {
     const errorMessageMock = 'Failed to fetch';
     useQueryMock({ isError: true, error: new Error(errorMessageMock) });
 
-    const { result } = renderHook(() => useGetApi<DataMockType>(endpointMock, getMockData));
+    const { result } = renderHook(() => useGetApi({ endpoint: endpointMock, validationSchema: mockValidationSchema }));
 
     expect(result.current.isError).toBeTruthy();
     expect(result.current.error?.message).toEqual(errorMessageMock);
