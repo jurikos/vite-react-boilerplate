@@ -43,4 +43,5 @@ export default defineConfig({
     },
     pool: 'forks',
   },
+  base: '/vite-react-boilerplate',
 });
