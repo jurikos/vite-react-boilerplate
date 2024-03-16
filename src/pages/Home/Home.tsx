@@ -1,13 +1,20 @@
 import { Heading } from '@chakra-ui/react';
 
-import styles from './Home.module.css';
+import { useMetaTags } from '@hooks';
 
-const Home = () => (
-  <div className={styles.root}>
-    <Heading as="h1" size="3xl">
-      Vite React Boilerplate
-    </Heading>
-  </div>
-);
+const Home = () => {
+  useMetaTags({
+    title: 'Home',
+    description: 'Home.',
+  });
+
+  return (
+    <>
+      <Heading as="h1" size="3xl">
+        Vite React Boilerplate
+      </Heading>
+    </>
+  );
+};
 
 export default Home;

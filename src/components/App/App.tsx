@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { Layout } from '@components';
 
-import { HomePage, JsonPlaceholderPage } from '@pages';
+import { CryptocurrencyPage, HomePage, JsonPlaceholderPage } from '@pages';
 
 import { RouteDictionary } from '@routes';
 
@@ -44,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: RouteDictionary.JsonPlaceholder,
         element: <JsonPlaceholderPage />,
+      },
+      {
+        path: RouteDictionary.Cryptocurrency,
+        element: <CryptocurrencyPage />,
       },
     ],
   },

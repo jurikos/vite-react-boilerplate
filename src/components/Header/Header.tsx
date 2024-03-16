@@ -29,8 +29,10 @@ const Header = () => {
           <Flex justifyContent="space-between" gap={2}>
             <Link href={RouteDictionary.Home}>Home</Link>
             <Link href={RouteDictionary.JsonPlaceholder}>JsonPlaceholder</Link>
+            <Link href={RouteDictionary.Cryptocurrency}>Cryptocurrency</Link>
           </Flex>
           <IconButton
+            size="sm"
             onClick={toggleColorMode}
             isRound
             aria-label="Toggle color mode"
