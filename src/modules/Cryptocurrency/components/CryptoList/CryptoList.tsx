@@ -4,7 +4,9 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  HStack,
   IconButton,
+  Image,
   Link,
   SkeletonText,
   Stack,
@@ -85,7 +87,7 @@ const CryptoList = () => {
         <Table variant="simple">
           <TableCaption>Top 100 Cryptocurrencies</TableCaption>
           <Thead>
-            <TableHeading />
+            <TableHeadings />
           </Thead>
           <Tbody>
             {data.map(({ id, rank, symbol, explorer, name, priceUsd, changePercent24Hr, marketCapUsd }) => {
@@ -94,7 +96,39 @@ const CryptoList = () => {
 
               return (
                 <Tr key={id}>
+                  <Td>{Number(rank)}</Td>
                   <Td>
+                    {explorer ? (
+                      <Link href={explorer} target="_blank">
+                        {symbol}
+                      </Link>
+                    ) : (
+                      symbol
+                    )}
+                  </Td>
+                  <Td>
+                    <HStack>
+                      <Image
+                        borderRadius="full"
+                        boxSize="24px"
+                        src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`}
+                        alt={name}
+                      />
+                      <span>{name}</span>
+                    </HStack>
+                  </Td>
+                  <Td isNumeric>{formatPrice(Number(priceUsd))}</Td>
+                  <Td
+                    color={
+                      numberChangePercent24Hr < 0 ? 'var(--chakra-colors-red-500)' : 'var(--chakra-colors-green-500)'
+                    }
+                    isNumeric
+                  >
+                    {numberChangePercent24Hr > 0 && '+'}
+                    {numberChangePercent24Hr.toFixed(2)}%
+                  </Td>
+                  <Td isNumeric>{formatPrice(Number(marketCapUsd))}</Td>
+                  <Td isNumeric>
                     <IconButton
                       size="sm"
                       onClick={() => onCryptoWatchListItemToggle({ symbol, rank: numberRank })}
@@ -111,34 +145,12 @@ const CryptoList = () => {
                       }
                     />
                   </Td>
-                  <Td>{Number(rank)}</Td>
-                  <Td>
-                    {explorer ? (
-                      <Link href={explorer} target="_blank">
-                        {symbol}
-                      </Link>
-                    ) : (
-                      symbol
-                    )}
-                  </Td>
-                  <Td>{name}</Td>
-                  <Td isNumeric>{formatPrice(Number(priceUsd))}</Td>
-                  <Td
-                    color={
-                      numberChangePercent24Hr < 0 ? 'var(--chakra-colors-red-500)' : 'var(--chakra-colors-green-500)'
-                    }
-                    isNumeric
-                  >
-                    {numberChangePercent24Hr > 0 && '+'}
-                    {numberChangePercent24Hr.toFixed(2)}%
-                  </Td>
-                  <Td isNumeric>{formatPrice(Number(marketCapUsd))}</Td>
                 </Tr>
               );
             })}
           </Tbody>
           <Tfoot>
-            <TableHeading />
+            <TableHeadings />
           </Tfoot>
         </Table>
       </TableContainer>
@@ -148,14 +160,14 @@ const CryptoList = () => {
 
 export default CryptoList;
 
-const TableHeading = () => (
+const TableHeadings = () => (
   <Tr>
-    <Th />
     <Th>#</Th>
     <Th>Symbol</Th>
     <Th>Name</Th>
     <Th isNumeric>Price</Th>
     <Th isNumeric>Change 24h</Th>
     <Th isNumeric>Market Cap</Th>
+    <Th isNumeric />
   </Tr>
 );
