@@ -1,4 +1,6 @@
-import { PropsWithChildren, createContext, useMemo, useState } from 'react';
+import { PropsWithChildren, createContext, useEffect, useMemo, useState } from 'react';
+
+import { handleLocalStorage } from '@shared/utils';
 
 type CryptoWatchListItem = {
   symbol: string;
@@ -20,7 +22,13 @@ const initialState: State = {
 export const GlobalContext = createContext<State>(initialState);
 
 const GlobalProvider = ({ children }: PropsWithChildren) => {
-  const [cryptoWatchList, setCryptoWatchList] = useState<CryptoWatchListItem[]>([]);
+  const [cryptoWatchList, setCryptoWatchList] = useState<CryptoWatchListItem[]>(
+    handleLocalStorage('get', 'cryptoWatchList') || initialState.cryptoWatchList,
+  );
+
+  useEffect(() => {
+    handleLocalStorage('set', 'cryptoWatchList', cryptoWatchList);
+  }, [cryptoWatchList]);
 
   const onCryptoWatchListItemToggle = (item: CryptoWatchListItem) =>
     setCryptoWatchList((prevState) =>
