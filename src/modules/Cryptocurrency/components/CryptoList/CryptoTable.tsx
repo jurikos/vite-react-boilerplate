@@ -73,7 +73,17 @@ const CryptoTable = ({ data }: Props) => {
     }),
     columnHelper.accessor('changePercent24Hr', {
       header: 'Change (24Hr)',
-      cell: (info) => `${Number(info.getValue()).toFixed(2)}%`,
+      cell: (info) => {
+        const numberChangePercent24Hr = Number(info.getValue());
+
+        return (
+          <chakra.span
+            color={numberChangePercent24Hr < 0 ? 'var(--chakra-colors-red-500)' : 'var(--chakra-colors-green-500)'}
+          >
+            {numberChangePercent24Hr.toFixed(2)}%
+          </chakra.span>
+        );
+      },
     }),
     columnHelper.accessor('marketCapUsd', {
       header: 'Market Cap (USD)',
