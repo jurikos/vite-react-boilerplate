@@ -6,11 +6,9 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Heading,
   IconButton,
   Link,
   SkeletonText,
-  Spacer,
   Stack,
   Table,
   TableCaption,
@@ -35,8 +33,9 @@ const endpoint = 'https://api.coincap.io/v2/assets';
 
 const CryptoTable = () => {
   const { data, isLoading, isError } = useGetApi(endpoint, getCryptoCurrencies);
-  const [cryptoWatchList, setCryptoWatchList] = useState<string[]>([]);
 
+  // TODO: move to context provider. Sort by rank. Display crypto images.
+  const [cryptoWatchList, setCryptoWatchList] = useState<string[]>([]);
   const onWatchListItemToggle = (item: string) => {
     setCryptoWatchList((prevList) => {
       if (prevList.includes(item)) {
@@ -154,13 +153,7 @@ const CryptoTable = () => {
 export default CryptoTable;
 
 const RootWrapper = ({ children, dataTestId }: PropsWithChildren<{ dataTestId: DataTestId }>) => (
-  <div data-testid={dataTestId}>
-    <Heading as="h1" size="3xl">
-      Cryptocurrency
-    </Heading>
-    <Spacer height={16} />
-    {children}
-  </div>
+  <div data-testid={dataTestId}>{children}</div>
 );
 
 const TableHeading = () => (

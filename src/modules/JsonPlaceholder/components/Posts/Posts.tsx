@@ -1,16 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Heading,
-  SkeletonText,
-  Spacer,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Heading, SkeletonText, Stack, Text } from '@chakra-ui/react';
 
 import { DataTestId } from '@constants';
 
@@ -81,11 +71,5 @@ const Posts = () => {
 export default Posts;
 
 const RootWrapper = ({ children, dataTestId }: PropsWithChildren<{ dataTestId: DataTestId }>) => (
-  <div data-testid={dataTestId}>
-    <Heading as="h1" size="3xl">
-      JsonPlaceholder Posts
-    </Heading>
-    <Spacer height={16} />
-    {children}
-  </div>
+  <div data-testid={dataTestId}>{children}</div>
 );
