@@ -30,11 +30,11 @@ import { formatPrice } from '@shared/utils';
 
 import { cryptoCurrencySchema } from '../../schemas';
 
-type Props = {
-  data: z.infer<typeof cryptoCurrencySchema>[];
-};
-
 type CryptoCurrency = z.infer<typeof cryptoCurrencySchema>;
+
+type Props = {
+  data: CryptoCurrency[];
+};
 
 const isNumericItems = ['priceUsd', 'changePercent24Hr', 'marketCapUsd'];
 
