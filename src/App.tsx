@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { CryptocurrencyPage, HomePage, JsonPlaceholderPage } from '@pages';
 
 import { Layout } from '@shared/components';
+import { GlobalProvider } from '@shared/context';
 import { RouteDictionary } from '@shared/routes';
 
 import theme from './theme';
@@ -20,16 +21,16 @@ const queryClient = new QueryClient({
   },
 });
 
-export const Root = () => {
-  return (
+export const Root = () => (
+  <GlobalProvider>
     <QueryClientProvider client={queryClient}>
       <Layout>
         <Outlet />
       </Layout>
       <ReactQueryDevtools initialIsOpen={false} position="left" buttonPosition="bottom-left" />
     </QueryClientProvider>
-  );
-};
+  </GlobalProvider>
+);
 
 const router = createBrowserRouter([
   {

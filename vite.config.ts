@@ -6,13 +6,13 @@ import { configDefaults } from 'vitest/config';
 const configOverrides = {
   resolve: {
     alias: {
-      '@context': '/src/context/index',
       '@modules': '/src/modules/index',
       '@pages': '/src/pages/index',
       //shared
       '@shared/assets': '/src/shared/assets',
       '@shared/components': '/src/shared/components/index',
       '@shared/constants': '/src/shared/constants/index',
+      '@shared/context': '/src/shared/context/index',
       '@shared/hooks': '/src/shared/hooks/index',
       '@shared/routes': '/src/shared/routes/index',
       '@shared/test': '/src/shared/test/index',

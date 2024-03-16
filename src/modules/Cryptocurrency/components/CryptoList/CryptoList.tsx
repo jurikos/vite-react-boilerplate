@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren } from 'react';
 
 import { StarIcon } from '@chakra-ui/icons';
 import {
@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 
 import { DataTestId } from '@shared/constants';
-import { useGetApi } from '@shared/hooks';
+import { useGetApi, useGlobalContext } from '@shared/hooks';
 import { formatPrice } from '@shared/utils';
 
 import { cryptoCurrencyApiValidationSchema } from '../../schemas';
@@ -36,18 +36,7 @@ const CryptoList = () => {
     isError,
   } = useGetApi({ endpoint, validationSchema: cryptoCurrencyApiValidationSchema });
   const data = responseData?.data;
-
-  // TODO: move to context provider. Sort by rank. Display crypto images.
-  const [cryptoWatchList, setCryptoWatchList] = useState<string[]>([]);
-  const onWatchListItemToggle = (item: string) => {
-    setCryptoWatchList((prevList) => {
-      if (prevList.includes(item)) {
-        return prevList.filter((crypto) => crypto !== item);
-      }
-
-      return [...prevList, item];
-    });
-  };
+  const { cryptoWatchList, onCryptoWatchListItemToggle } = useGlobalContext();
 
   if (isError) {
     return (
@@ -92,7 +81,6 @@ const CryptoList = () => {
 
   return (
     <RootWrapper dataTestId={DataTestId.isDataPresent}>
-      {cryptoWatchList.join(', ')}
       <TableContainer>
         <Table variant="simple">
           <TableCaption>Top 100 Cryptocurrencies</TableCaption>
@@ -102,18 +90,23 @@ const CryptoList = () => {
           <Tbody>
             {data.map(({ id, rank, symbol, explorer, name, priceUsd, changePercent24Hr, marketCapUsd }) => {
               const numberChangePercent24Hr = Number(changePercent24Hr);
+              const numberRank = Number(rank);
 
               return (
                 <Tr key={id}>
                   <Td>
                     <IconButton
                       size="sm"
-                      onClick={() => onWatchListItemToggle(symbol)}
+                      onClick={() => onCryptoWatchListItemToggle({ symbol, rank: numberRank })}
                       isRound
                       aria-label="Add to watch list"
                       icon={
                         <StarIcon
-                          color={cryptoWatchList.includes(symbol) ? 'var(--chakra-colors-yellow-400)' : undefined}
+                          color={
+                            cryptoWatchList.find((item) => item.symbol === symbol)
+                              ? 'var(--chakra-colors-yellow-400)'
+                              : undefined
+                          }
                         />
                       }
                     />

@@ -26,13 +26,13 @@
     }],
     "baseUrl": "src",
     "paths": {
-      "@context": ["context/index"],
       "@modules": ["modules/index"],
       "@pages": ["pages/index"],
       //shared
       "@shared/assets/*": ["shared/assets/*"],
       "@shared/components": ["shared/components/index"],
       "@shared/constants": ["shared/constants/index"],
+      "@shared/context": ["shared/context/index"],
       "@shared/hooks": ["shared/hooks/index"],
       "@shared/routes": ["shared/routes/index"],
       "@shared/test": ["shared/test/index"],
