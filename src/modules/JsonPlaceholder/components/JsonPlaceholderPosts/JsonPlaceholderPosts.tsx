@@ -9,7 +9,7 @@ import { getPosts } from '../../api';
 
 const endpoint = 'https://jsonplaceholder.typicode.com/posts';
 
-const Posts = () => {
+const JsonPlaceholderPosts = () => {
   const { data, isLoading, isError } = useGetApi(endpoint, getPosts);
 
   if (isError) {
@@ -67,7 +67,7 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default JsonPlaceholderPosts;
 
 const RootWrapper = ({ children, dataTestId }: PropsWithChildren<{ dataTestId: DataTestId }>) => (
   <div data-testid={dataTestId}>{children}</div>

@@ -5,15 +5,15 @@ import * as hooks from '@shared/hooks';
 import { TestWrapper, queryResultMock } from '@shared/test';
 
 import { cryptoCurrenciesMock } from '../../mocks';
-import Table from './Table';
+import CryptoList from './CryptoList';
 
-describe('Table', () => {
+describe('CryptoList', () => {
   const useGetApiSpy = vi.spyOn(hooks, 'useGetApi');
 
   it('displays error state', () => {
     useGetApiSpy.mockReturnValue({ ...queryResultMock, isError: true });
 
-    render(<Table />, { wrapper: TestWrapper });
+    render(<CryptoList />, { wrapper: TestWrapper });
 
     expect(screen.getByTestId(DataTestId.isError)).toBeInTheDocument();
   });
@@ -21,7 +21,7 @@ describe('Table', () => {
   it('displays loading state', () => {
     useGetApiSpy.mockReturnValue({ ...queryResultMock, isLoading: true });
 
-    render(<Table />, { wrapper: TestWrapper });
+    render(<CryptoList />, { wrapper: TestWrapper });
 
     expect(screen.getByTestId(DataTestId.isLoading)).toBeInTheDocument();
   });
@@ -29,7 +29,7 @@ describe('Table', () => {
   it('displays empty state', () => {
     useGetApiSpy.mockReturnValue({ ...queryResultMock, data: [] });
 
-    render(<Table />, { wrapper: TestWrapper });
+    render(<CryptoList />, { wrapper: TestWrapper });
 
     expect(screen.getByTestId(DataTestId.isDataEmpty)).toBeInTheDocument();
   });
@@ -40,7 +40,7 @@ describe('Table', () => {
       data: cryptoCurrenciesMock,
     });
 
-    render(<Table />, { wrapper: TestWrapper });
+    render(<CryptoList />, { wrapper: TestWrapper });
 
     expect(screen.getByTestId(DataTestId.isDataPresent)).toBeInTheDocument();
   });

@@ -1,6 +1,6 @@
 import { Heading, Spacer } from '@chakra-ui/react';
 
-import { CryptoCurrencyTable } from '@modules';
+import { CryptoList } from '@modules';
 
 import { useMetaTags } from '@shared/hooks';
 
@@ -16,7 +16,7 @@ const Cryptocurrency = () => {
         Cryptocurrency
       </Heading>
       <Spacer height={16} />
-      <CryptoCurrencyTable />
+      <CryptoList />
     </>
   );
 };

@@ -29,7 +29,7 @@ import { getCryptoCurrencies } from '../../api';
 
 const endpoint = 'https://api.coincap.io/v2/assets';
 
-const CryptoTable = () => {
+const CryptoList = () => {
   const { data, isLoading, isError } = useGetApi(endpoint, getCryptoCurrencies);
 
   // TODO: move to context provider. Sort by rank. Display crypto images.
@@ -148,7 +148,7 @@ const CryptoTable = () => {
   );
 };
 
-export default CryptoTable;
+export default CryptoList;
 
 const RootWrapper = ({ children, dataTestId }: PropsWithChildren<{ dataTestId: DataTestId }>) => (
   <div data-testid={dataTestId}>{children}</div>

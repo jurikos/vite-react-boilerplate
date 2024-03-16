@@ -1,4 +1,4 @@
-import Table from './Cryptocurrency/components/Table/Table';
-import Posts from './JsonPlaceholder/components/Posts/Posts';
+import CryptoList from './Cryptocurrency/components/CryptoList/CryptoList';
+import JsonPlaceholderPosts from './JsonPlaceholder/components/JsonPlaceholderPosts/JsonPlaceholderPosts';
 
-export { Posts as JsonPlaceholderPosts, Table as CryptoCurrencyTable };
+export { JsonPlaceholderPosts, CryptoList };

@@ -5,15 +5,15 @@ import * as hooks from '@shared/hooks';
 import { TestWrapper, queryResultMock } from '@shared/test';
 
 import { postsMock } from '../../mocks';
-import Posts from './Posts';
+import JsonPlaceholderPosts from './JsonPlaceholderPosts';
 
-describe('Posts', () => {
+describe('JsonPlaceholderPosts', () => {
   const useGetApiSpy = vi.spyOn(hooks, 'useGetApi');
 
   it('displays error state', () => {
     useGetApiSpy.mockReturnValue({ ...queryResultMock, isError: true });
 
-    render(<Posts />, { wrapper: TestWrapper });
+    render(<JsonPlaceholderPosts />, { wrapper: TestWrapper });
 
     expect(screen.getByTestId(DataTestId.isError)).toBeInTheDocument();
   });
@@ -21,7 +21,7 @@ describe('Posts', () => {
   it('displays loading state', () => {
     useGetApiSpy.mockReturnValue({ ...queryResultMock, isLoading: true });
 
-    render(<Posts />, { wrapper: TestWrapper });
+    render(<JsonPlaceholderPosts />, { wrapper: TestWrapper });
 
     expect(screen.getByTestId(DataTestId.isLoading)).toBeInTheDocument();
   });
@@ -29,7 +29,7 @@ describe('Posts', () => {
   it('displays empty state', () => {
     useGetApiSpy.mockReturnValue({ ...queryResultMock, data: [] });
 
-    render(<Posts />, { wrapper: TestWrapper });
+    render(<JsonPlaceholderPosts />, { wrapper: TestWrapper });
 
     expect(screen.getByTestId(DataTestId.isDataEmpty)).toBeInTheDocument();
   });
@@ -40,7 +40,7 @@ describe('Posts', () => {
       data: postsMock,
     });
 
-    render(<Posts />, { wrapper: TestWrapper });
+    render(<JsonPlaceholderPosts />, { wrapper: TestWrapper });
 
     expect(screen.getByTestId(DataTestId.isDataPresent)).toBeInTheDocument();
   });
