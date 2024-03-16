@@ -32,26 +32,29 @@ export const Root = () => (
   </GlobalProvider>
 );
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    children: [
-      {
-        path: RouteDictionary.Home,
-        element: <HomePage />,
-      },
-      {
-        path: RouteDictionary.JsonPlaceholder,
-        element: <JsonPlaceholderPage />,
-      },
-      {
-        path: RouteDictionary.Cryptocurrency,
-        element: <CryptocurrencyPage />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <Root />,
+      children: [
+        {
+          path: RouteDictionary.Home,
+          element: <HomePage />,
+        },
+        {
+          path: RouteDictionary.JsonPlaceholder,
+          element: <JsonPlaceholderPage />,
+        },
+        {
+          path: RouteDictionary.Cryptocurrency,
+          element: <CryptocurrencyPage />,
+        },
+      ],
+    },
+  ],
+  { basename: '/vite-react-boilerplate' },
+);
 
 const App = () => (
   <ChakraProvider theme={theme}>
