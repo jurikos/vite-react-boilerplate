@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -9,6 +8,7 @@ import { CryptocurrencyPage, HomePage, JsonPlaceholderPage } from '@pages';
 
 import { Layout } from '@shared/components';
 import { GlobalProvider } from '@shared/context';
+import { useGhPages404 } from '@shared/hooks';
 import { RouteDictionary } from '@shared/routes';
 
 import theme from './theme';
@@ -23,18 +23,7 @@ const queryClient = new QueryClient({
 });
 
 export const Root = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const currentURL = window.location.pathname + window.location.search;
-    // Detect if we are in the GitHub Pages redirect scenario
-    if (currentURL.includes('/?/')) {
-      // Extract the path after the '/?/'
-      const newPath = currentURL.split('/?/')[1] || '';
-      // Use navigate to go to the correct path without leading slash
-      navigate(newPath, { replace: true });
-    }
-  }, [navigate]);
+  useGhPages404();
 
   return (
     <GlobalProvider>
