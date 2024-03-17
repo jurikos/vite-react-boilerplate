@@ -1,12 +1,15 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { HttpResponse, http } from 'msw';
 
 import { DataTestId } from '@shared/constants';
-import * as hooks from '@shared/hooks';
-import { TestWrapper, queryResultMock } from '@shared/test';
+import { TestWrapper, createServerMock } from '@shared/test';
 import { getScopedDataTestId } from '@shared/utils';
 
 import CryptoList from './CryptoList';
-import { testIdScope } from './constants';
+import { apiEndpoint, testIdScope } from './constants';
+
+const { serverStart, server } = createServerMock();
+serverStart();
 
 const cryptoCurrenciesMock = [
   {
@@ -40,40 +43,73 @@ const cryptoCurrenciesMock = [
 ];
 
 describe('CryptoList', () => {
-  const useGetApiSpy = vi.spyOn(hooks, 'useGetApi');
-
-  it('displays error state', () => {
-    useGetApiSpy.mockReturnValue({ ...queryResultMock, isError: true });
+  it('displays error state', async () => {
+    server.use(
+      ...[
+        http.get(apiEndpoint, () => {
+          return HttpResponse.error();
+        }),
+      ],
+    );
 
     render(<CryptoList />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isError))).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isError))).toBeInTheDocument(),
+    );
   });
 
-  it('displays loading state', () => {
-    useGetApiSpy.mockReturnValue({ ...queryResultMock, isLoading: true });
+  it('displays loading state', async () => {
+    server.use(
+      ...[
+        http.get(apiEndpoint, () => {
+          return HttpResponse.json(undefined);
+        }),
+      ],
+    );
 
     render(<CryptoList />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isLoading))).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isLoading))).toBeInTheDocument(),
+    );
   });
 
-  it('displays empty state', () => {
-    useGetApiSpy.mockReturnValue({ ...queryResultMock, data: { data: [] } });
+  it('displays empty state', async () => {
+    server.use(
+      ...[
+        http.get(apiEndpoint, () => {
+          return HttpResponse.json({
+            data: [],
+            timestamp: 1710696061105,
+          });
+        }),
+      ],
+    );
 
     render(<CryptoList />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isDataEmpty))).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isDataEmpty))).toBeInTheDocument(),
+    );
   });
 
-  it('displays success state', () => {
-    useGetApiSpy.mockReturnValue({
-      ...queryResultMock,
-      data: { data: cryptoCurrenciesMock },
-    });
+  it('displays success state', async () => {
+    server.use(
+      ...[
+        http.get(apiEndpoint, () => {
+          return HttpResponse.json({
+            data: cryptoCurrenciesMock,
+            timestamp: 1710696061105,
+          });
+        }),
+      ],
+    );
 
     render(<CryptoList />, { wrapper: TestWrapper });
 
-    expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isDataPresent))).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId(getScopedDataTestId(testIdScope, DataTestId.isDataPresent))).toBeInTheDocument(),
+    );
   });
 });

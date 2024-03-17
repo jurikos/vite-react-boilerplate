@@ -7,16 +7,14 @@ import { getScopedDataTestId } from '@shared/utils';
 
 import { cryptoCurrencyApiValidationSchema } from '../../schemas';
 import CryptoTable from './CryptoTable';
-import { testIdScope } from './constants';
-
-const endpoint = 'https://api.coincap.io/v2/assets';
+import { apiEndpoint, testIdScope } from './constants';
 
 const CryptoList = () => {
   const {
     data: responseData,
     isLoading,
     isError,
-  } = useGetApi({ endpoint, validationSchema: cryptoCurrencyApiValidationSchema });
+  } = useGetApi({ endpoint: apiEndpoint, validationSchema: cryptoCurrencyApiValidationSchema });
   const data = responseData?.data;
 
   if (isError) {

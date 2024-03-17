@@ -6,13 +6,11 @@ import { useGetApi } from '@shared/hooks';
 import { getScopedDataTestId } from '@shared/utils';
 
 import { jsonPlaceholderPostApiValidationSchema } from '../../schemas';
-import { testIdScope } from './constants';
-
-const endpoint = 'https://jsonplaceholder.typicode.com/posts';
+import { apiEndpoint, testIdScope } from './constants';
 
 const JsonPlaceholderPosts = () => {
   const { data, isLoading, isError } = useGetApi({
-    endpoint,
+    endpoint: apiEndpoint,
     validationSchema: jsonPlaceholderPostApiValidationSchema,
   });
 

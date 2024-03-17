@@ -1,3 +1,4 @@
-const testIdScope = 'Cryptocurrency-CryptoList';
+const testIdScope = 'JsonPlaceholder-JsonPlaceholderPosts';
+const apiEndpoint = 'https://jsonplaceholder.typicode.com/posts';
 
-export { testIdScope };
+export { testIdScope, apiEndpoint };
