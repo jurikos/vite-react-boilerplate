@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import { StarIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
+import { SearchIcon, StarIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import {
   HStack,
   IconButton,
   Image,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Spacer,
   Table,
   TableCaption,
   TableContainer,
@@ -38,11 +42,23 @@ type Props = {
 
 const isNumericItems = ['priceUsd', 'changePercent24Hr', 'marketCapUsd'];
 
+const filterDataBySearchValue = (data: CryptoCurrency[], searchValue: string) => {
+  const lowerCaseSearchValue = searchValue.toLowerCase();
+
+  return data.filter(
+    ({ name, symbol }) =>
+      name.toLowerCase().includes(lowerCaseSearchValue) || symbol.toLowerCase().includes(lowerCaseSearchValue),
+  );
+};
+
 const CryptoTable = ({ data }: Props) => {
   const { cryptoWatchList, onCryptoWatchListItemToggle } = useGlobalContext();
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [searchValue, setSearchValue] = useState('');
 
   const columnHelper = createColumnHelper<CryptoCurrency>();
+
+  const filteredData = useMemo(() => filterDataBySearchValue(data, searchValue), [data, searchValue]);
 
   const columns = [
     columnHelper.accessor('rank', {
@@ -92,7 +108,7 @@ const CryptoTable = ({ data }: Props) => {
   ];
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -103,72 +119,86 @@ const CryptoTable = ({ data }: Props) => {
   });
 
   return (
-    <TableContainer>
-      <Table variant="simple">
-        <TableCaption>Top 100 Cryptocurrencies</TableCaption>
-        <Thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <Tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                const isNumericCell = isNumericItems.includes(header.id);
+    <>
+      <InputGroup>
+        <InputLeftElement pointerEvents="none">
+          <SearchIcon color="gray.600" />
+        </InputLeftElement>
+        <Input
+          type="search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          placeholder="Bitcoin or BTC..."
+        />
+      </InputGroup>
+      <Spacer height={4} />
+      <TableContainer>
+        <Table variant="simple">
+          <TableCaption>Top 100 Cryptocurrencies</TableCaption>
+          <Thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <Tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  const isNumericCell = isNumericItems.includes(header.id);
 
-                const columnSorted = header.column.getIsSorted();
+                  const columnSorted = header.column.getIsSorted();
 
-                return (
-                  <Th key={header.id} onClick={header.column.getToggleSortingHandler()} isNumeric={isNumericCell}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {columnSorted ? (
-                      <chakra.span pl="2">
-                        {columnSorted === 'desc' ? (
-                          <TriangleDownIcon aria-label="sorted descending" />
-                        ) : (
-                          <TriangleUpIcon aria-label="sorted ascending" />
-                        )}
-                      </chakra.span>
-                    ) : null}
-                  </Th>
-                );
-              })}
-              <Th isNumeric />
-            </Tr>
-          ))}
-        </Thead>
-        <Tbody>
-          {table.getRowModel().rows.map((row) => (
-            <Tr key={row.id}>
-              {row.getVisibleCells().map((cell) => {
-                const isNumericCell = isNumericItems.includes(cell.column.id);
+                  return (
+                    <Th key={header.id} onClick={header.column.getToggleSortingHandler()} isNumeric={isNumericCell}>
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                      {columnSorted ? (
+                        <chakra.span pl="2">
+                          {columnSorted === 'desc' ? (
+                            <TriangleDownIcon aria-label="sorted descending" />
+                          ) : (
+                            <TriangleUpIcon aria-label="sorted ascending" />
+                          )}
+                        </chakra.span>
+                      ) : null}
+                    </Th>
+                  );
+                })}
+                <Th isNumeric />
+              </Tr>
+            ))}
+          </Thead>
+          <Tbody>
+            {table.getRowModel().rows.map((row) => (
+              <Tr key={row.id}>
+                {row.getVisibleCells().map((cell) => {
+                  const isNumericCell = isNumericItems.includes(cell.column.id);
 
-                return (
-                  <Td key={cell.id} isNumeric={isNumericCell}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Td>
-                );
-              })}
-              <Td isNumeric>
-                <IconButton
-                  size="sm"
-                  onClick={() =>
-                    onCryptoWatchListItemToggle({ symbol: row.original.symbol, rank: Number(row.original.rank) })
-                  }
-                  isRound
-                  aria-label="Add to watch list"
-                  icon={
-                    <StarIcon
-                      color={
-                        cryptoWatchList.find((item) => item.symbol === row.original.symbol)
-                          ? 'var(--chakra-colors-yellow-400)'
-                          : undefined
-                      }
-                    />
-                  }
-                />
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+                  return (
+                    <Td key={cell.id} isNumeric={isNumericCell}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </Td>
+                  );
+                })}
+                <Td isNumeric>
+                  <IconButton
+                    size="sm"
+                    onClick={() =>
+                      onCryptoWatchListItemToggle({ symbol: row.original.symbol, rank: Number(row.original.rank) })
+                    }
+                    isRound
+                    aria-label="Add to watch list"
+                    icon={
+                      <StarIcon
+                        color={
+                          cryptoWatchList.find((item) => item.symbol === row.original.symbol)
+                            ? 'var(--chakra-colors-yellow-400)'
+                            : undefined
+                        }
+                      />
+                    }
+                  />
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 
