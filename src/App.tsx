@@ -54,6 +54,7 @@ const router = createBrowserRouter(
         {
           path: RouteDictionary.Cryptocurrency,
           element: <CryptocurrencyPage />,
+          children: [{ path: ':currencyName', element: <CryptocurrencyPage /> }],
         },
       ],
     },

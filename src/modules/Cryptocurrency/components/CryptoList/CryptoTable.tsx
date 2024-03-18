@@ -29,6 +29,7 @@ import {
 } from '@tanstack/react-table';
 import { z } from 'zod';
 
+import { LinkWithRouter } from '@shared/components';
 import { useGlobalContext } from '@shared/hooks';
 import { formatPrice } from '@shared/utils';
 
@@ -68,7 +69,7 @@ const CryptoTable = ({ data }: Props) => {
     columnHelper.accessor('symbol', {
       header: 'Symbol',
       cell: (info) => (
-        <HStack>
+        <HStack as={LinkWithRouter} href={info.row.original.name.toLowerCase()}>
           <Image
             borderRadius="full"
             boxSize="24px"
@@ -81,7 +82,7 @@ const CryptoTable = ({ data }: Props) => {
     }),
     columnHelper.accessor('name', {
       header: () => 'Name',
-      cell: (info) => <>{info.getValue()}</>,
+      cell: (info) => <LinkWithRouter href={info.getValue().toLowerCase()}>{info.getValue()}</LinkWithRouter>,
     }),
     columnHelper.accessor('priceUsd', {
       header: 'Price (USD)',

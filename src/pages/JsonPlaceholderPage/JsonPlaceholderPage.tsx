@@ -4,7 +4,7 @@ import { JsonPlaceholderPosts } from '@modules';
 
 import { useMetaTags } from '@shared/hooks';
 
-const JsonPlaceholder = () => {
+const JsonPlaceholderPage = () => {
   useMetaTags({
     title: 'JsonPlaceholder',
     description: 'JsonPlaceholder.',
@@ -21,4 +21,4 @@ const JsonPlaceholder = () => {
   );
 };
 
-export default JsonPlaceholder;
+export default JsonPlaceholderPage;

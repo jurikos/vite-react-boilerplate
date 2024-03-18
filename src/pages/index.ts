@@ -1,5 +1,5 @@
-import Cryptocurrency from './Cryptocurrency/Cryptocurrency';
-import Home from './Home/Home';
-import JsonPlaceholder from './JsonPlaceholder/JsonPlaceholder';
+import CryptocurrencyPage from './CryptocurrencyPage/CryptocurrencyPage';
+import HomePage from './HomePage/HomePage';
+import JsonPlaceholderPage from './JsonPlaceholderPage/JsonPlaceholderPage';
 
-export { JsonPlaceholder as JsonPlaceholderPage, Home as HomePage, Cryptocurrency as CryptocurrencyPage };
+export { JsonPlaceholderPage, HomePage, CryptocurrencyPage };

@@ -2,7 +2,7 @@ import { Heading } from '@chakra-ui/react';
 
 import { useMetaTags } from '@shared/hooks';
 
-const Home = () => {
+const HomePage = () => {
   useMetaTags({
     title: 'Home',
     description: 'Home.',
@@ -17,4 +17,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

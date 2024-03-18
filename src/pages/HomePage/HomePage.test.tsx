@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
 
-import Home from './Home';
+import HomePage from './HomePage';
 
-describe('Home', () => {
+describe('HomePage', () => {
   it('renders the Home component', () => {
-    render(<Home />);
+    render(<HomePage />);
   });
 });
