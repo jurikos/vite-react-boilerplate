@@ -31,7 +31,7 @@ import { z } from 'zod';
 
 import { LinkWithRouter } from '@shared/components';
 import { useGlobalContext } from '@shared/hooks';
-import { formatPrice } from '@shared/utils';
+import { formatPrice, formatSlug, getCryptoImageUrl } from '@shared/utils';
 
 import { cryptoCurrencySchema } from '../../schemas';
 
@@ -69,20 +69,15 @@ const CryptoTable = ({ data }: Props) => {
     columnHelper.accessor('symbol', {
       header: 'Symbol',
       cell: (info) => (
-        <HStack as={LinkWithRouter} href={info.row.original.name.toLowerCase()}>
-          <Image
-            borderRadius="full"
-            boxSize="24px"
-            src={`https://assets.coincap.io/assets/icons/${info.getValue().toLowerCase()}@2x.png`}
-            alt={info.getValue()}
-          />
+        <HStack as={LinkWithRouter} href={formatSlug(info.row.original.name)}>
+          <Image borderRadius="full" boxSize="24px" src={getCryptoImageUrl(info.getValue())} alt={info.getValue()} />
           <span>{info.getValue()}</span>
         </HStack>
       ),
     }),
     columnHelper.accessor('name', {
       header: () => 'Name',
-      cell: (info) => <LinkWithRouter href={info.getValue().toLowerCase()}>{info.getValue()}</LinkWithRouter>,
+      cell: (info) => <LinkWithRouter href={formatSlug(info.getValue())}>{info.getValue()}</LinkWithRouter>,
     }),
     columnHelper.accessor('priceUsd', {
       header: 'Price (USD)',
@@ -179,7 +174,11 @@ const CryptoTable = ({ data }: Props) => {
                   <IconButton
                     size="sm"
                     onClick={() =>
-                      onCryptoWatchListItemToggle({ symbol: row.original.symbol, rank: Number(row.original.rank) })
+                      onCryptoWatchListItemToggle({
+                        symbol: row.original.symbol,
+                        rank: Number(row.original.rank),
+                        name: row.original.name,
+                      })
                     }
                     isRound
                     aria-label="Add to watch list"

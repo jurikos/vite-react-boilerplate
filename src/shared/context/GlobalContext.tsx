@@ -5,6 +5,7 @@ import { handleLocalStorage } from '@shared/utils';
 type CryptoWatchListItem = {
   symbol: string;
   rank: number;
+  name: string;
 };
 
 type State = {

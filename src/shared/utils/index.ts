@@ -12,4 +12,12 @@ const formatPrice = (price: number) =>
 
 const getScopedDataTestId = (testIdScope: string, dataTestId: string) => `${testIdScope}-${dataTestId}`;
 
-export { api, handleApiError, formatPrice, getScopedDataTestId, handleLocalStorage };
+const formatSlug = (value: string): string => value.trim().toLowerCase().replace(/\s+/g, '-');
+
+const getCryptoImageUrl = (symbol: string) => {
+  const symbolLowerCase = symbol.toLowerCase();
+
+  return `https://assets.coincap.io/assets/icons/${symbolLowerCase === 'iota' ? 'miota' : symbolLowerCase}@2x.png`;
+};
+
+export { api, handleApiError, formatPrice, getScopedDataTestId, handleLocalStorage, formatSlug, getCryptoImageUrl };
