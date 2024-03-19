@@ -30,6 +30,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       <Divider />
       <Spacer height={6} />
       <Footer />
+      <Spacer height={6} />
     </>
   );
 };
