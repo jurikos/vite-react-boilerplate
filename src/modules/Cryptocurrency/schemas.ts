@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+const error = z.string().optional();
+const timestamp = z.number();
+
 export const cryptoCurrencySchema = z.object({
   id: z.string(),
   rank: z.string(),
@@ -15,7 +18,14 @@ export const cryptoCurrencySchema = z.object({
   explorer: z.string().url().nullable(),
 });
 
-export const cryptoCurrencyApiValidationSchema = z.object({
+export const cryptoCurrencyListApiValidationSchema = z.object({
+  error,
+  timestamp,
   data: z.array(cryptoCurrencySchema),
-  timestamp: z.number(),
+});
+
+export const cryptoCurrencyDetailApiValidationSchema = z.object({
+  error,
+  timestamp,
+  data: cryptoCurrencySchema.optional(),
 });

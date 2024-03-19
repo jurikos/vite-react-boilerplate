@@ -6,7 +6,7 @@ import { Button, ButtonGroup, HStack, IconButton, Image, Stack } from '@chakra-u
 import { MainContainer } from '@shared/components';
 import { useGlobalContext } from '@shared/hooks';
 import { RouteDictionary } from '@shared/routes';
-import { formatSlug, getCryptoImageUrl } from '@shared/utils';
+import { getCryptoImageUrl } from '@shared/utils';
 
 const WatchList = () => {
   const navigate = useNavigate();
@@ -18,15 +18,11 @@ const WatchList = () => {
     <MainContainer>
       <Stack direction="row" spacing={4} align="center">
         {sortedCryptoWatchList.map((item) => {
-          const { symbol, name } = item;
+          const { symbol, id, name } = item;
 
           return (
             <ButtonGroup key={item.symbol} size="sm" isAttached variant="outline">
-              <HStack
-                as={Button}
-                onClick={() => navigate(`${RouteDictionary.Cryptocurrency}/${formatSlug(name)}`)}
-                size="sm"
-              >
+              <HStack as={Button} onClick={() => navigate(`${RouteDictionary.Cryptocurrency}/${id}`)} size="sm">
                 <Image borderRadius="full" boxSize="20px" src={getCryptoImageUrl(symbol)} alt={name} />
                 <span>{symbol}</span>
               </HStack>

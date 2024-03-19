@@ -3,9 +3,10 @@ import { PropsWithChildren, createContext, useEffect, useMemo, useState } from '
 import { handleLocalStorage } from '@shared/utils';
 
 type CryptoWatchListItem = {
-  symbol: string;
-  rank: number;
+  id: string;
   name: string;
+  rank: number;
+  symbol: string;
 };
 
 type State = {

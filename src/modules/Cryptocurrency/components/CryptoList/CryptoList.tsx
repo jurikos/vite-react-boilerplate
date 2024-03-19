@@ -5,7 +5,7 @@ import { DataTestId } from '@shared/constants';
 import { useGetApi } from '@shared/hooks';
 import { getScopedDataTestId } from '@shared/utils';
 
-import { cryptoCurrencyApiValidationSchema } from '../../schemas';
+import { cryptoCurrencyListApiValidationSchema } from '../../schemas';
 import CryptoTable from './CryptoTable';
 import { apiEndpoint, testIdScope } from './constants';
 
@@ -14,7 +14,7 @@ const CryptoList = () => {
     data: responseData,
     isLoading,
     isError,
-  } = useGetApi({ endpoint: apiEndpoint, validationSchema: cryptoCurrencyApiValidationSchema });
+  } = useGetApi({ endpoint: apiEndpoint, validationSchema: cryptoCurrencyListApiValidationSchema });
   const data = responseData?.data;
 
   if (isError) {

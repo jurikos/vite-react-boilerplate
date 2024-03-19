@@ -31,7 +31,7 @@ import { z } from 'zod';
 
 import { LinkWithRouter } from '@shared/components';
 import { useGlobalContext } from '@shared/hooks';
-import { formatPrice, formatSlug, getCryptoImageUrl } from '@shared/utils';
+import { formatPrice, getCryptoImageUrl } from '@shared/utils';
 
 import { cryptoCurrencySchema } from '../../schemas';
 
@@ -69,7 +69,7 @@ const CryptoTable = ({ data }: Props) => {
     columnHelper.accessor('symbol', {
       header: 'Symbol',
       cell: (info) => (
-        <HStack as={LinkWithRouter} href={formatSlug(info.row.original.name)}>
+        <HStack as={LinkWithRouter} href={info.row.original.id}>
           <Image borderRadius="full" boxSize="24px" src={getCryptoImageUrl(info.getValue())} alt={info.getValue()} />
           <span>{info.getValue()}</span>
         </HStack>
@@ -77,7 +77,7 @@ const CryptoTable = ({ data }: Props) => {
     }),
     columnHelper.accessor('name', {
       header: () => 'Name',
-      cell: (info) => <LinkWithRouter href={formatSlug(info.getValue())}>{info.getValue()}</LinkWithRouter>,
+      cell: (info) => <LinkWithRouter href={info.row.original.id}>{info.getValue()}</LinkWithRouter>,
     }),
     columnHelper.accessor('priceUsd', {
       header: 'Price (USD)',
@@ -175,9 +175,10 @@ const CryptoTable = ({ data }: Props) => {
                     size="sm"
                     onClick={() =>
                       onCryptoWatchListItemToggle({
+                        id: row.original.id,
+                        name: row.original.name,
                         symbol: row.original.symbol,
                         rank: Number(row.original.rank),
-                        name: row.original.name,
                       })
                     }
                     isRound

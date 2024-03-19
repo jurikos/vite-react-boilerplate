@@ -6,8 +6,8 @@ const formatPrice = (price: number) =>
   new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: price < 0.01 && price !== 0 ? Math.max(2, -Math.floor(Math.log10(price)) + 2) : 2,
+    maximumFractionDigits: price < 0.01 && price !== 0 ? Math.max(2, -Math.floor(Math.log10(price)) + 2) : 2,
   }).format(price);
 
 const getScopedDataTestId = (testIdScope: string, dataTestId: string) => `${testIdScope}-${dataTestId}`;
@@ -31,6 +31,12 @@ const getIsActive = (pathname: string, slug: string): boolean => {
   return normalizedPathname.startsWith(normalizedSlug);
 };
 
+const formatNameFromSlug = (slug: string): string =>
+  slug
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
 export {
   api,
   handleApiError,
@@ -40,4 +46,5 @@ export {
   formatSlug,
   getCryptoImageUrl,
   getIsActive,
+  formatNameFromSlug,
 };

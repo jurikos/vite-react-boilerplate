@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Heading, Spacer } from '@chakra-ui/react';
+import { Heading, SkeletonText, Spacer } from '@chakra-ui/react';
 
-import { CryptoList } from '@modules';
+import { CryptoDetail, CryptoList } from '@modules';
 
 import { useMetaTags } from '@shared/hooks';
 
@@ -36,16 +37,24 @@ const IndexView = () => {
 };
 
 const DetailView = ({ currencyName }: { currencyName: string }) => {
+  const [metaTags, setMetaTags] = useState<{ title: string; description: string }>();
+
   useMetaTags({
-    title: `${currencyName}`,
-    description: `${currencyName}.`,
+    title: metaTags?.title || '',
+    description: metaTags?.description || '',
   });
 
   return (
     <>
-      <Heading as="h1" size="3xl">
-        {currencyName}
-      </Heading>
+      {metaTags ? (
+        <Heading as="h1" size="3xl">
+          {metaTags.title}
+        </Heading>
+      ) : (
+        <SkeletonText noOfLines={1} skeletonHeight="60px" />
+      )}
+      <Spacer height={16} />
+      <CryptoDetail currencyName={currencyName} onSetMetaTags={setMetaTags} />
     </>
   );
 };
