@@ -1,37 +1,36 @@
 import { PropsWithChildren } from 'react';
 
-import { Divider, Spacer } from '@chakra-ui/react';
+import { Divider, Spacer, chakra } from '@chakra-ui/react';
 
 import { Footer, Header, MainContainer, WatchList } from '@shared/components';
 import { useGlobalContext } from '@shared/hooks';
-
-import styles from './Layout.module.css';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const { isWatchListVisible } = useGlobalContext();
 
   return (
-    <div className={styles.root}>
-      <div className={styles.header}>
-        <Header />
-      </div>
+    <>
+      <Spacer height={6} />
+      <Header />
+      <Spacer height={6} />
       <Divider />
       {isWatchListVisible && (
         <>
           <Spacer height={4} />
-          <WatchList />
+          <chakra.div overflow="auto hidden">
+            <WatchList />
+          </chakra.div>
           <Spacer height={4} />
           <Divider />
         </>
       )}
-      <div className={styles.main}>
-        <MainContainer>{children}</MainContainer>
-      </div>
+      <Spacer height={24} />
+      <MainContainer as="main">{children}</MainContainer>
+      <Spacer height={24} />
       <Divider />
-      <div className={styles.footer}>
-        <Footer />
-      </div>
-    </div>
+      <Spacer height={6} />
+      <Footer />
+    </>
   );
 };
 

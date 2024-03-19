@@ -2,8 +2,12 @@ import { PropsWithChildren } from 'react';
 
 import { Container } from '@chakra-ui/react';
 
-const MainContainer = ({ children }: PropsWithChildren) => (
-  <Container maxW="1600px" as="main">
+type Props = {
+  as?: 'div' | 'main';
+};
+
+const MainContainer = ({ as = 'div', children }: PropsWithChildren<Props>) => (
+  <Container maxW="1600px" as={as}>
     {children}
   </Container>
 );

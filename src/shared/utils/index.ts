@@ -20,4 +20,24 @@ const getCryptoImageUrl = (symbol: string) => {
   return `https://assets.coincap.io/assets/icons/${symbolLowerCase === 'iota' ? 'miota' : symbolLowerCase}@2x.png`;
 };
 
-export { api, handleApiError, formatPrice, getScopedDataTestId, handleLocalStorage, formatSlug, getCryptoImageUrl };
+const getIsActive = (pathname: string, slug: string): boolean => {
+  if (slug === '/') {
+    return pathname === '/';
+  }
+
+  const normalizedPathname = pathname.endsWith('/') ? pathname : `${pathname}/`;
+  const normalizedSlug = slug.endsWith('/') ? slug : `${slug}/`;
+
+  return normalizedPathname.startsWith(normalizedSlug);
+};
+
+export {
+  api,
+  handleApiError,
+  formatPrice,
+  getScopedDataTestId,
+  handleLocalStorage,
+  formatSlug,
+  getCryptoImageUrl,
+  getIsActive,
+};

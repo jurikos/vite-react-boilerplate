@@ -1,7 +1,7 @@
 import ky from 'ky';
 
 const api = ky.extend({
-  retry: 1,
+  retry: 0,
 });
 
 export default api;

@@ -1,11 +1,11 @@
+import { chakra } from '@chakra-ui/react';
+
 import { MainContainer } from '@shared/components';
 
-import styles from './Footer.module.css';
-
 const Footer = () => (
-  <footer className={styles.root}>
+  <chakra.footer>
     <MainContainer>&copy; {new Date().getFullYear()}</MainContainer>
-  </footer>
+  </chakra.footer>
 );
 
 export default Footer;

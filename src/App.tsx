@@ -31,7 +31,7 @@ export const Root = () => {
         <Layout>
           <Outlet />
         </Layout>
-        <ReactQueryDevtools initialIsOpen={false} position="left" buttonPosition="bottom-left" />
+        <ReactQueryDevtools initialIsOpen={false} position="right" buttonPosition="bottom-right" />
       </QueryClientProvider>
     </GlobalProvider>
   );
