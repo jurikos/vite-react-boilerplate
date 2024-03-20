@@ -22,7 +22,7 @@ const configOverrides = {
   },
   test: {
     coverage: {
-      exclude: ['src/main.tsx'],
+      exclude: ['src/main.tsx', 'src/App.tsx', 'src/shared/types'],
     },
   },
 };

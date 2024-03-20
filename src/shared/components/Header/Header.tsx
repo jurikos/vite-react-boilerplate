@@ -93,14 +93,14 @@ const Header = () => {
 
 export default Header;
 
-type NavigationItem = {
+type NavigationItemProps = {
   item: NavigationItemType;
   pathname: string;
   onClick?: () => void;
   width?: string;
 };
 
-const NavigationItem = ({ item: { title, slug }, pathname, onClick, width }: NavigationItem) => (
+const NavigationItem = ({ item: { title, slug }, pathname, onClick, width }: NavigationItemProps) => (
   <LinkWithRouter
     href={slug}
     onClick={onClick}

@@ -10,12 +10,14 @@ type CryptoWatchListItem = {
 };
 
 type State = {
+  isContextProvided: boolean;
   cryptoWatchList: CryptoWatchListItem[];
   onCryptoWatchListItemToggle: (item: CryptoWatchListItem) => void;
   isWatchListVisible: boolean;
 };
 
 const initialState: State = {
+  isContextProvided: false,
   cryptoWatchList: [],
   onCryptoWatchListItemToggle: () => undefined,
   isWatchListVisible: false,
@@ -41,6 +43,7 @@ const GlobalProvider = ({ children }: PropsWithChildren) => {
 
   const contextValue = useMemo(
     () => ({
+      isContextProvided: true,
       isWatchListVisible: !!cryptoWatchList.length,
       cryptoWatchList,
       onCryptoWatchListItemToggle,

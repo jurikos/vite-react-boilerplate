@@ -6,7 +6,9 @@ import { Button, ButtonGroup, HStack, IconButton, Image, Stack } from '@chakra-u
 import { MainContainer } from '@shared/components';
 import { useGlobalContext } from '@shared/hooks';
 import { RouteDictionary } from '@shared/routes';
-import { getCryptoImageUrl } from '@shared/utils';
+import { getCryptoImageUrl, getScopedDataTestId } from '@shared/utils';
+
+import { testIdScope } from './constants';
 
 const WatchList = () => {
   const navigate = useNavigate();
@@ -22,7 +24,12 @@ const WatchList = () => {
 
           return (
             <ButtonGroup key={item.symbol} size="sm" isAttached variant="outline">
-              <HStack as={Button} onClick={() => navigate(`${RouteDictionary.Cryptocurrency}/${id}`)} size="sm">
+              <HStack
+                as={Button}
+                onClick={() => navigate(`${RouteDictionary.Cryptocurrency}/${id}`)}
+                size="sm"
+                data-testid={getScopedDataTestId(testIdScope, 'buttonNavigate')}
+              >
                 <Image borderRadius="full" boxSize="20px" src={getCryptoImageUrl(symbol)} alt={name} />
                 <span>{symbol}</span>
               </HStack>
@@ -30,6 +37,7 @@ const WatchList = () => {
                 onClick={() => onCryptoWatchListItemToggle(item)}
                 aria-label="Remove from watchlist"
                 icon={<CloseIcon />}
+                data-testid={getScopedDataTestId(testIdScope, 'buttonRemove')}
               />
             </ButtonGroup>
           );

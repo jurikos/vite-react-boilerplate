@@ -5,7 +5,7 @@ import { GlobalContext } from '@shared/context';
 const useGlobalContext = () => {
   const context = useContext(GlobalContext);
 
-  if (context === undefined) {
+  if (!context.isContextProvided) {
     throw new Error('useGlobalContext must be used within a GlobalProvider');
   }
 

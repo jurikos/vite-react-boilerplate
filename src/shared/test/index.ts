@@ -1,5 +1,6 @@
 import TestWrapper from './TestWrapper';
-import createServer from './mocks/server';
+import useNavigateMock from './mocks/reactRouterDom';
+import createServerMock from './mocks/server';
 
 // NB! All exports to be used in test files only!
-export { TestWrapper, createServer as createServerMock };
+export { TestWrapper, createServerMock, useNavigateMock };

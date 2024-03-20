@@ -1,6 +1,6 @@
 import { setupServer } from 'msw/node';
 
-const createServer = () => {
+const createServerMock = () => {
   const server = setupServer();
 
   return {
@@ -13,4 +13,4 @@ const createServer = () => {
   };
 };
 
-export default createServer;
+export default createServerMock;
