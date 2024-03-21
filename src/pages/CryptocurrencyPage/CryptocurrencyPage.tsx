@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Heading, SkeletonText, Spacer } from '@chakra-ui/react';
+import { Spacer } from '@chakra-ui/react';
 
 import { CryptoDetail, CryptoList } from '@modules';
 
-import { useMetaTags } from '@shared/hooks';
+import { PageHeading } from '@shared/components';
 
 const CryptocurrencyPage = () => {
   const { currencyName } = useParams();
@@ -20,16 +20,9 @@ const CryptocurrencyPage = () => {
 export default CryptocurrencyPage;
 
 const IndexView = () => {
-  useMetaTags({
-    title: 'Cryptocurrency',
-    description: 'Cryptocurrency.',
-  });
-
   return (
     <>
-      <Heading as="h1" size="3xl">
-        Cryptocurrency
-      </Heading>
+      <PageHeading title="Cryptocurrency" description="Cryptocurrency." />
       <Spacer height={16} />
       <CryptoList />
     </>
@@ -39,20 +32,9 @@ const IndexView = () => {
 const DetailView = ({ currencyName }: { currencyName: string }) => {
   const [metaTags, setMetaTags] = useState<{ title: string; description: string }>();
 
-  useMetaTags({
-    title: metaTags?.title || '',
-    description: metaTags?.description || '',
-  });
-
   return (
     <>
-      {metaTags ? (
-        <Heading as="h1" size="3xl">
-          {metaTags.title}
-        </Heading>
-      ) : (
-        <SkeletonText noOfLines={1} skeletonHeight="60px" />
-      )}
+      <PageHeading title={metaTags?.title} description={metaTags?.description} />
       <Spacer height={16} />
       <CryptoDetail currencyName={currencyName} onSetMetaTags={setMetaTags} />
     </>

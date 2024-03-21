@@ -1,18 +1,9 @@
-import { Heading } from '@chakra-ui/react';
-
-import { useMetaTags } from '@shared/hooks';
+import { PageHeading } from '@shared/components';
 
 const HomePage = () => {
-  useMetaTags({
-    title: 'Home',
-    description: 'Home.',
-  });
-
   return (
     <>
-      <Heading as="h1" size="3xl">
-        Vite React Boilerplate
-      </Heading>
+      <PageHeading title="Home" description="Vite React Boilerplate." />
     </>
   );
 };
