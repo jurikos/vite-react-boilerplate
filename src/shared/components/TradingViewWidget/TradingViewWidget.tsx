@@ -3,11 +3,16 @@ import { useEffect } from 'react';
 import { chakra, useColorMode } from '@chakra-ui/react';
 
 type Props = {
+  exchange: string;
   symbol: string;
+  currency?: string;
+  widgetHeight?: number;
 };
 
-const TradingViewWidget = ({ symbol }: Props) => {
+const TradingViewWidget = ({ exchange, symbol, currency = '', widgetHeight = 480 }: Props) => {
   const { colorMode } = useColorMode();
+
+  const containerId = `tradingview-widget-${exchange}-${symbol}-${currency}`;
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -20,7 +25,7 @@ const TradingViewWidget = ({ symbol }: Props) => {
       new TradingView.widget({
         theme: colorMode,
         autosize: true,
-        symbol: `BINANCE:${symbol}USDT`,
+        symbol: `${exchange}:${symbol}${currency}`,
         interval: 'D',
         timezone: 'Etc/UTC',
         style: '1',
@@ -30,7 +35,7 @@ const TradingViewWidget = ({ symbol }: Props) => {
         allow_symbol_change: false,
         calendar: false,
         hide_top_toolbar: true,
-        container_id: 'tradingview-widget',
+        container_id: containerId,
       });
     };
 
@@ -39,9 +44,9 @@ const TradingViewWidget = ({ symbol }: Props) => {
     return () => {
       document.body.removeChild(script);
     };
-  }, [colorMode, symbol]);
+  }, [colorMode, containerId, currency, exchange, symbol]);
 
-  return <chakra.div id="tradingview-widget" height={480} />;
+  return <chakra.div id={containerId} height={widgetHeight} />;
 };
 
 export default TradingViewWidget;

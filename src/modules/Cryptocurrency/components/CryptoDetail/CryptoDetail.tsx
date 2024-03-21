@@ -16,13 +16,12 @@ import {
 } from '@chakra-ui/react';
 import { format as formatDateFns } from 'date-fns';
 
-import { RootWrapper } from '@shared/components';
+import { RootWrapper, TradingViewWidget } from '@shared/components';
 import { DataTestId } from '@shared/constants';
 import { useGetApi } from '@shared/hooks';
 import { formatPrice, getCryptoImageUrl, getScopedDataTestId } from '@shared/utils';
 
 import { cryptoCurrencyDetailApiValidationSchema } from '../../schemas';
-import TradingViewWidget from './TradingViewWidget';
 import { apiEndpoint, testIdScope } from './constants';
 
 type Props = {
@@ -116,7 +115,7 @@ const CryptoDetail = ({ currencyName, onSetMetaTags }: Props) => {
         </HStack>
       </Flex>
       <Spacer height={16} />
-      <TradingViewWidget symbol={symbol} />
+      <TradingViewWidget exchange="BINANCE" symbol={symbol} currency="USDT" />
     </RootWrapper>
   );
 };
