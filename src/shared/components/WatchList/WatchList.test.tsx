@@ -1,4 +1,5 @@
-import { act, fireEvent, render, renderHook, screen } from '@testing-library/react';
+import { act, render, renderHook, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { useGlobalContext } from '@shared/hooks';
 import { TestWrapper, useNavigateMock } from '@shared/test';
@@ -13,43 +14,31 @@ const cryptoWatchListMock = [
 ];
 
 describe('WatchList', () => {
-  it('removes item from watchlist', () => {
+  beforeEach(() => {
     const { result } = renderHook(() => useGlobalContext(), { wrapper: TestWrapper });
 
     act(() => {
       result.current.onCryptoWatchListItemToggle(cryptoWatchListMock[0]);
     });
+  });
 
+  it('removes item from watchlist', async () => {
     render(<WatchList />, { wrapper: TestWrapper });
 
     expect(screen.getByText(cryptoWatchListMock[0].symbol)).toBeInTheDocument();
 
-    const buttonRemove = screen.getByTestId(getScopedDataTestId(testIdScope, 'buttonRemove'));
-
-    act(() => {
-      fireEvent.click(buttonRemove);
-    });
+    await userEvent.click(screen.getByTestId(getScopedDataTestId(testIdScope, 'buttonRemove')));
 
     expect(screen.queryByText(cryptoWatchListMock[0].symbol)).not.toBeInTheDocument();
   });
 
-  it('navigates to crypto detail page', () => {
-    const { result } = renderHook(() => useGlobalContext(), { wrapper: TestWrapper });
-
-    act(() => {
-      result.current.onCryptoWatchListItemToggle(cryptoWatchListMock[1]);
-    });
-
+  it('navigates to crypto detail page', async () => {
     render(<WatchList />, { wrapper: TestWrapper });
 
-    expect(screen.getByText(cryptoWatchListMock[1].symbol)).toBeInTheDocument();
+    expect(screen.getByText(cryptoWatchListMock[0].symbol)).toBeInTheDocument();
 
-    const buttonNavigate = screen.getByTestId(getScopedDataTestId(testIdScope, 'buttonNavigate'));
+    await userEvent.click(screen.getByTestId(getScopedDataTestId(testIdScope, 'buttonNavigate')));
 
-    act(() => {
-      fireEvent.click(buttonNavigate);
-    });
-
-    expect(useNavigateMock).toHaveBeenCalledWith(`cryptocurrency/${cryptoWatchListMock[1].id}`);
+    expect(useNavigateMock).toHaveBeenCalledWith(`cryptocurrency/${cryptoWatchListMock[0].id}`);
   });
 });
