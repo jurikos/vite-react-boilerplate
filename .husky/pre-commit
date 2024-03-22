@@ -1,2 +1,3 @@
+cd packages/frontend
 npx lint-staged
 npm test
