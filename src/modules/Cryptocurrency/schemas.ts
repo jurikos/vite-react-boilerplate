@@ -14,7 +14,7 @@ export const cryptoCurrencySchema = z.object({
   volumeUsd24Hr: z.string(),
   priceUsd: z.string(),
   changePercent24Hr: z.string(),
-  vwap24Hr: z.string().optional(),
+  vwap24Hr: z.string().nullable().optional(),
   explorer: z.string().url().nullable(),
 });
 
