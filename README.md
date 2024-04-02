@@ -92,43 +92,43 @@ For example, the `Cryptocurrency` module defines schemas for cryptocurrency data
 
 In the project directory, you can run the following scripts defined in `package.json`:
 
-### `npm run dev`
+### `pnpm dev`
 
 Runs the app in the development mode.
 
-### `npm run build`
+### `pnpm build`
 
 Compiles the TypeScript files and builds the app for production to the `dist` folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified, and the filenames include the hashes.
 
-### `npm run preview`
+### `pnpm preview`
 
-Runs the built app in preview mode. After building the app using `npm run build`, you can use this command to preview the production build locally.
+Runs the built app in preview mode. After building the app using `pnpm build`, you can use this command to preview the production build locally.
 
-### `npm run lint`
+### `pnpm lint`
 
 Runs ESLint and Stylelint across your project for `.js`, `.jsx`, `.ts`, `.tsx`, and `.css` files. It identifies and reports on patterns found in ECMAScript/JavaScript code and CSS, with the aim of making code more consistent and avoiding bugs.
 
-### `npm run lint:fix`
+### `pnpm lint:fix`
 
-Similar to `npm run lint`, but attempts to fix any linting errors automatically.
+Similar to `pnpm lint`, but attempts to fix any linting errors automatically.
 
-### `npm run format`
+### `pnpm format`
 
 Runs Prettier to automatically format `.js`, `.jsx`, `.ts`, `.tsx`, `.json`, `.css`, and `.md` files according to the project's style guidelines. This helps maintain consistency and readability across the codebase.
 
-### `npm run test`
+### `pnpm run test`
 
 Runs tests with Vitest.
 
-### `npm run test:coverage`
+### `pnpm test:coverage`
 
 Runs tests with Vitest and generates a coverage report. It provides insights into how much of your code is covered by tests.
 
-### `npm run component`
+### `pnpm component`
 
 Utilizes `generate-react-cli` to scaffold a new React component. This command helps streamline the creation of new components by setting up a consistent structure automatically.
 
-### `npm run prepare`
+### `pnpm prepare`
 
 Executes Husky, setting up Git hooks to ensure scripts like linting and testing are automatically run at appropriate times, such as before commits. This helps maintain code quality and prevent issues from being pushed to the repository.
 
